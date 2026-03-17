@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uwaysh's Kahani</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0b0b0b;
+color:white;
+}
+
+.hero{
+height:100vh;
+background:url("hero.jpg") center/cover no-repeat;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+
+.overlay{
+background:rgba(0,0,0,0.6);
+padding:40px;
+border-radius:12px;
+}
+
+.timeline{
+max-width:700px;
+margin:auto;
+padding:40px;
+}
+
+.stage{
+background:#1e1e1e;
+padding:20px;
+margin:20px 0;
+border-radius:10px;
+cursor:pointer;
+}
+
+.stage h2{
+color:#ff8c00;
+}
+
+.gift{
+display:none;
+color:#ffd54f;
+font-weight:bold;
+margin-top:10px;
+}
+
+</style>
+
+<script>
+
+function reveal(id){
+
+let gift=document.getElementById(id)
+
+if(gift.style.display=="block"){
+gift.style.display="none"
+}else{
+gift.style.display="block"
+}
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="hero">
+<div class="overlay">
+
+<h1>🌍 Uwaysh's Kahani</h1>
+
+<p>13 stages. 13 gifts. One unforgettable journey.</p>
+
+</div>
+</div>
+
+<div class="timeline">
+
+<div class="stage" onclick="reveal('g1')">
+<h2>🔥 Stage 1 — The Grill Master</h2>
+<div class="gift" id="g1">🎁 Gift: Grill Master Apron</div>
+</div>
+
+<div class="stage" onclick="reveal('g2')">
+<h2>🧭 Stage 2 — The Journey Begins</h2>
+<div class="gift" id="g2">🎁 Gift: Travel Journal</div>
+</div>
+
+<div class="stage" onclick="reveal('g3')">
+<h2>🌍 Stage 3 — The Explorer</h2>
+<div class="gift" id="g3">🎁 Gift: World Map</div>
+</div>
+
+<div class="stage" onclick="reveal('g4')">
+<h2>⚔ Stage 4 — The Challenge</h2>
+<div class="gift" id="g4">🎁 Gift: Surprise Gift</div>
+</div>
+
+<div class="stage" onclick="reveal('g5')">
+<h2>🏔 Stage 5 — The Mountain</h2>
+<div class="gift" id="g5">🎁 Gift: Adventure Item</div>
+</div>
+
+<div class="stage" onclick="reveal('g6')">
+<h2>🌊 Stage 6 — The Unknown</h2>
+<div class="gift" id="g6">🎁 Gift: Mystery Gift</div>
+</div>
+
+<div class="stage" onclick="reveal('g7')">
+<h2>🧠 Stage 7 — Wisdom</h2>
+<div class="gift" id="g7">🎁 Gift: Thoughtful Gift</div>
+</div>
+
+<div class="stage" onclick="reveal('g8')">
+<h2>🔥 Stage 8 — Fire Returns</h2>
+<div class="gift" id="g8">🎁 Gift: BBQ Surprise</div>
+</div>
+
+<div class="stage" onclick="reveal('g9')">
+<h2>🌟 Stage 9 — The Rise</h2>
+<div class="gift" id="g9">🎁 Gift: Special Gift</div>
+</div>
+
+<div class="stage" onclick="reveal('g10')">
+<h2>🚀 Stage 10 — The Future</h2>
+<div class="gift" id="g10">🎁 Gift: Future Adventure</div>
+</div>
+
+<div class="stage" onclick="reveal('g11')">
+<h2>🏆 Stage 11 — The Champion</h2>
+<div class="gift" id="g11">🎁 Gift: Victory Gift</div>
+</div>
+
+<div class="stage" onclick="reveal('g12')">
+<h2>🌌 Stage 12 — Beyond</h2>
+<div class="gift" id="g12">🎁 Gift: Hidden Surprise</div>
+</div>
+
+<div class="stage" onclick="reveal('g13')">
+<h2>👑 Stage 13 — The Legend</h2>
+<div class="gift" id="g13">🎁 Gift: Final Gift</div>
+</div>
+
+</div>
+
+</body>
+</html>
