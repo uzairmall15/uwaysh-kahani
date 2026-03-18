@@ -13,15 +13,6 @@ font-family:Arial, Helvetica, sans-serif;
 background:#0b0b0b;
 color:white;
 text-align:center;
-overflow-x:hidden;
-}
-
-canvas{
-position:fixed;
-top:0;
-left:0;
-pointer-events:none;
-z-index:0;
 }
 
 .intro{
@@ -35,13 +26,14 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-z-index:10;
+z-index:999;
 }
 
 .hero{
 height:100vh;
 background:url("hero.png") center/contain no-repeat;
-display:none;
+background-color:#0b0b0b;
+display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
@@ -56,11 +48,6 @@ border:none;
 border-radius:6px;
 color:white;
 cursor:pointer;
-transition:0.3s;
-}
-
-.startBtn:hover{
-transform:scale(1.05);
 }
 
 .section{
@@ -86,17 +73,17 @@ transition:.3s;
 }
 
 .stage.locked{
-opacity:.35;
+opacity:.3;
 cursor:not-allowed;
 }
 
 .stage:hover:not(.locked){
-transform:scale(1.07);
+transform:scale(1.05);
 background:#ff8c00;
 }
 
 .box{
-font-size:45px;
+font-size:40px;
 margin-bottom:10px;
 }
 
@@ -112,7 +99,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 padding:30px;
-z-index:5;
+z-index:1000;
 }
 
 .fullscreen img{
@@ -130,17 +117,13 @@ border-radius:6px;
 margin:10px;
 cursor:pointer;
 font-size:16px;
-transition:0.3s;
 }
 
-.btn:hover{
-transform:scale(1.05);
-}
-
-@media(max-width:700px){
-.grid{
-grid-template-columns:repeat(2,1fr);
-}
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
 }
 
 </style>
@@ -151,8 +134,10 @@ grid-template-columns:repeat(2,1fr);
 <canvas id="confetti"></canvas>
 
 <div class="intro" id="intro">
+
 <h1>EID MUBARAK 🌙</h1>
 <p>The Unexpected Journey Begins...</p>
+
 <button class="startBtn" onclick="enterSite()">ENTER</button>
 
 <audio id="eidMusic" loop>
@@ -169,11 +154,16 @@ grid-template-columns:repeat(2,1fr);
 
 </div>
 
+
 <div class="hero" id="hero">
+
 <h1>🌍 Uwaysh's Kahani</h1>
 <p>13 stages. 13 gifts. One unforgettable journey.</p>
+
 <button class="startBtn" onclick="startJourney()">START THE JOURNEY</button>
+
 </div>
+
 
 <div class="section" id="journey">
 
@@ -208,6 +198,7 @@ Trust the process.
 
 </div>
 
+
 <div class="fullscreen" id="stageScreen">
 
 <h2 id="giftTitle"></h2>
@@ -217,44 +208,104 @@ Trust the process.
 <img id="bbqImage" src="bbq.png" style="display:none">
 
 <div>
+
 <button class="btn" onclick="backToGrid()">Back</button>
 <button class="btn" onclick="nextStage()">Next</button>
 <button class="btn" onclick="exitJourney()">Exit</button>
+
 </div>
 
 </div>
+
 
 <script>
 
 let currentStage = 0
 
-const gifts = [
+const gifts=[
 
-["1️⃣ Football Socks","We’re starting strong. This has absolutely nothing to do with the rest of the gifts."],
+["1️⃣ Football Socks",`We’re starting strong.
 
-["2️⃣ Rubber Gloves","Now we start looking the part."],
+This has absolutely nothing to do with the rest of the gifts.
 
-["3️⃣ Wipes","Things are about to get messy."],
+No theme.
+No hidden meaning.
 
-["4️⃣ Apron","Now the transformation begins."],
+I just saw them and thought:
+“Yeah… he’d probably like those.”
 
-["5️⃣ Spray Bottle","Keep things juicy."],
+Consider this the warm-up round.`],
 
-["6️⃣ Spatula Set","Professional tools unlocked."],
+["2️⃣ Rubber Gloves",`Now we start looking the part.
 
-["7️⃣ Small Burger Press","Purely for the little one someday."],
+Handling things like a professional requires clean hands and confidence.
 
-["8️⃣ Small Dome","Again… purely for the little one someday."],
+This helps with the clean part.
 
-["9️⃣ Burger Press","For doing things properly."],
+The confidence is up to you.`],
 
-["🔟 Big Dome","The secret weapon."],
+["3️⃣ Wipes",`Things are about to get messy.
 
-["1️⃣1️⃣ Coal","The heart of it all."],
+This will help clean things up…
 
-["1️⃣2️⃣ Cast Iron Plate","Now this is serious equipment."],
+or wipe away the panic when things start going wrong.`],
 
-["1️⃣3️⃣ BBQ","Your journey officially begins now. 🔥🍔"]
+["4️⃣ Apron",`Now the transformation begins.
+
+Put this on and suddenly everyone assumes you know exactly what you're doing.
+
+Congratulations.
+
+You are now officially in charge.`],
+
+["5️⃣ Spray Bottle",`A true master understands one important rule:
+
+Keep things juicy.`],
+
+["6️⃣ Spatula Set",`Now we’re getting serious.
+
+These are the tools used by real professionals.
+
+Please try not to launch anything across the garden.`],
+
+["7️⃣ Small Burger Press",`Purely for the little one someday.`],
+
+["8️⃣ Small Dome",`Again…
+
+purely for the little one someday.`],
+
+["9️⃣ Burger Press",`For doing things properly.
+
+Not the "flatten it with a pot and hope for the best" technique.`],
+
+["🔟 Big Dome",`The secret weapon.
+
+Place this over the top and watch everything melt perfectly.`],
+
+["1️⃣1️⃣ Coal",`The heart of it all.
+
+Without this…
+
+you’re just standing outside holding equipment and looking confused.`],
+
+["1️⃣2️⃣ Cast Iron Plate",`Now this is serious equipment.
+
+At this point you're no longer just cooking.
+
+You're performing.`],
+
+["1️⃣3️⃣ BBQ",`And finally…
+
+Every master eventually reaches this moment.
+
+After all the preparation, tools, and training…
+
+there was only one thing missing.
+
+The tools are ready.
+The fire is ready.
+
+Your journey officially begins now. 🔥🍔`]
 
 ]
 
@@ -265,11 +316,9 @@ document.getElementById("openSound").play()
 function enterSite(){
 document.getElementById("eidMusic").play()
 document.getElementById("intro").style.display="none"
-document.getElementById("hero").style.display="flex"
 }
 
 function startJourney(){
-playOpen()
 document.getElementById("hero").style.display="none"
 document.getElementById("journey").style.display="block"
 generateGrid()
@@ -277,7 +326,7 @@ generateGrid()
 
 function generateGrid(){
 
-const grid = document.getElementById("grid")
+const grid=document.getElementById("grid")
 grid.innerHTML=""
 
 for(let i=0;i<gifts.length;i++){
@@ -287,10 +336,7 @@ stage.className="stage"
 
 if(i>currentStage) stage.classList.add("locked")
 
-stage.innerHTML=`
-<div class="box">${i<=currentStage?"🎁":"🔒"}</div>
-Stage ${i+1}
-`
+stage.innerHTML=`<div class="box">🎁</div>Stage ${i+1}`
 
 stage.onclick=()=>openStage(i)
 
@@ -330,7 +376,6 @@ if(currentStage < gifts.length-1)
 currentStage++
 
 generateGrid()
-
 backToGrid()
 
 }
@@ -355,13 +400,11 @@ canvas.height=window.innerHeight
 let pieces=[]
 
 for(let i=0;i<120;i++){
-
 pieces.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
 r:Math.random()*6+4
 })
-
 }
 
 function draw(){
@@ -370,9 +413,7 @@ ctx.clearRect(0,0,canvas.width,canvas.height)
 
 ctx.fillStyle="#ff8c00"
 
-for(let i=0;i<pieces.length;i++){
-
-let p=pieces[i]
+for(let p of pieces){
 
 ctx.beginPath()
 ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
