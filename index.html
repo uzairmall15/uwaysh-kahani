@@ -95,14 +95,15 @@ height:100%;
 background:#0b0b0b;
 display:none;
 flex-direction:column;
-justify-content:center;
 align-items:center;
-padding:30px;
+padding:40px 20px;
+overflow-y:auto;
 z-index:1000;
 }
 
 .storyCard{
 max-width:700px;
+width:90%;
 white-space:pre-line;
 background:#141414;
 padding:30px;
@@ -111,13 +112,15 @@ margin-top:20px;
 line-height:1.7;
 font-size:18px;
 box-shadow:0 0 30px rgba(255,140,0,0.15);
-min-height:200px;
+margin-bottom:20px;
 }
 
 .fullscreen img{
-max-width:350px;
+max-width:380px;
+width:90%;
 border-radius:10px;
-margin-top:20px;
+margin-top:25px;
+height:auto;
 }
 
 .btn{
@@ -151,33 +154,27 @@ pointer-events:none;
 <canvas id="confetti"></canvas>
 
 <div class="intro" id="intro">
-
 <h1>EID MUBARAK 🌙</h1>
 <p>The Unexpected Journey Begins...</p>
-
 <button class="startBtn" onclick="enterSite()">ENTER</button>
 
 <audio id="eidMusic" loop>
-<source src="eid.mp3" type="audio/mpeg">
+<source src="eid.mp3">
 </audio>
 
 <audio id="openSound">
-<source src="open.mp3" type="audio/mpeg">
+<source src="open.mp3">
 </audio>
 
 <audio id="celebration">
-<source src="celebration.mp3" type="audio/mpeg">
+<source src="celebration.mp3">
 </audio>
-
 </div>
 
 <div class="hero" id="hero">
-
 <h1>🌍 Uwaysh's Kahani</h1>
 <p>13 stages. 13 gifts. One unforgettable journey.</p>
-
 <button class="startBtn" onclick="startJourney()">START THE JOURNEY</button>
-
 </div>
 
 <div class="section" id="journey">
@@ -200,12 +197,10 @@ pointer-events:none;
 <img id="bbqImage" src="bbq.png" style="display:none">
 
 <div>
-
 <button class="btn" id="backBtn" onclick="backToGrid()" disabled>Back</button>
 <button class="btn" id="nextBtn" onclick="nextStage()" disabled>Next</button>
 <button class="btn" id="exitBtn" onclick="exitJourney()" disabled>Exit</button>
 <button class="btn" id="homeBtn" onclick="goHome()" style="display:none;">Back to Home</button>
-
 </div>
 
 </div>
@@ -218,23 +213,43 @@ const gifts=[
 
 ["1️⃣ Football Socks",`We’re starting strong.
 
-This has absolutely nothing to do with the rest of the gifts.`],
+This has absolutely nothing to do with the rest of the gifts.
 
-["2️⃣ Rubber Gloves",`Now we start looking the part.`],
+No theme.
+No hidden meaning.
 
-["3️⃣ Wipes",`Things are about to get messy.`],
+I just saw them and thought:
+“Yeah… he’d probably like those.”
 
-["4️⃣ Apron",`Now the transformation begins.`],
+Consider this the warm-up round.`],
 
-["5️⃣ Spray Bottle",`Keep things juicy.`],
+["2️⃣ Rubber Gloves",`Now we start looking the part.
+
+Handling things like a professional requires clean hands and confidence.`],
+
+["3️⃣ Wipes",`Things are about to get messy.
+
+This will help clean things up…`],
+
+["4️⃣ Apron",`Now the transformation begins.
+
+Put this on and suddenly everyone assumes you know exactly what you're doing.`],
+
+["5️⃣ Spray Bottle",`A true master understands one important rule:
+
+Keep things juicy.`],
 
 ["6️⃣ BBQ Tools",`Now we’re getting serious.
 
 These are the tools used by real professionals.`],
 
-["7️⃣ Small Burger Press",`Purely for the little one someday… Inshallah.`],
+["7️⃣ Small Burger Press",`Purely for the little one someday…
 
-["8️⃣ Small Dome",`Again… purely for the little one someday, Inshallah.`],
+Inshallah.`],
+
+["8️⃣ Small Dome",`Again…
+
+purely for the little one someday, Inshallah.`],
 
 ["9️⃣ Burger Press",`For doing things properly.`],
 
@@ -264,19 +279,15 @@ document.getElementById("nextBtn").disabled=true
 document.getElementById("exitBtn").disabled=true
 
 function type(){
-
 if(i<text.length){
 element.textContent+=text.charAt(i)
 i++
 setTimeout(type,20)
 }else{
-
 document.getElementById("backBtn").disabled=false
 document.getElementById("nextBtn").disabled=false
 document.getElementById("exitBtn").disabled=false
-
 }
-
 }
 
 type()
@@ -321,17 +332,13 @@ backToGrid()
 }
 
 function backToGrid(){
-
 document.getElementById("stageScreen").style.display="none"
 document.getElementById("journey").style.display="block"
-
 }
 
 function goHome(){
-
 document.getElementById("stageScreen").style.display="none"
 document.getElementById("hero").style.display="flex"
-
 }
 
 function generateGrid(){
