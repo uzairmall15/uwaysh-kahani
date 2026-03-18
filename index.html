@@ -269,6 +269,7 @@ Trust the process.
 <script>
 
 let currentStage=0
+let maxUnlocked=0
 
 const gifts=[
 
@@ -388,6 +389,8 @@ setTimeout(type,18)
 
 enableButtons()
 
+giftImage.style.display="block"
+
 if(stage==12){
 
 bbqImage.style.display="block"
@@ -413,7 +416,7 @@ type()
 
 function openStage(i){
 
-if(i>currentStage) return
+if(i>maxUnlocked) return
 
 openSound.play()
 
@@ -423,7 +426,7 @@ stageScreen.style.display="flex"
 giftTitle.innerText=gifts[i][0]
 
 giftImage.src=gifts[i][1]
-giftImage.style.display="block"
+giftImage.style.display="none"
 
 bbqImage.style.display="none"
 
@@ -434,10 +437,15 @@ currentStage=i
 }
 
 function nextStage(){
-if(currentStage < gifts.length-1)
+
+if(currentStage < gifts.length-1){
 currentStage++
+maxUnlocked=currentStage
+}
+
 generateGrid()
 backToGrid()
+
 }
 
 function backToGrid(){
@@ -458,7 +466,7 @@ for(let i=0;i<gifts.length;i++){
 const stage=document.createElement("div")
 stage.className="stage"
 
-if(i>currentStage) stage.classList.add("locked")
+if(i>maxUnlocked) stage.classList.add("locked")
 
 stage.innerHTML=`<div class="box">🎁</div>Stage ${i+1}`
 
