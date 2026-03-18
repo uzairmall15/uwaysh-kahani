@@ -2,14 +2,13 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Uwaysh's Kahani</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial;
+font-family:Arial, Helvetica, sans-serif;
 background:#0b0b0b;
 color:white;
 text-align:center;
@@ -98,7 +97,7 @@ font-size:40px;
 margin-bottom:10px;
 }
 
-/* FULLSCREEN CARD */
+/* FULLSCREEN */
 
 .fullscreen{
 position:fixed;
@@ -142,11 +141,9 @@ pointer-events:none;
 }
 
 @media(max-width:600px){
-
 .grid{
 grid-template-columns:repeat(3,1fr);
 }
-
 }
 
 </style>
@@ -157,14 +154,18 @@ grid-template-columns:repeat(3,1fr);
 
 <canvas id="confetti"></canvas>
 
-<!-- INTRO SCREEN -->
+<!-- INTRO -->
 
 <div class="intro" id="intro">
 
 <h1>EID MUBARAK 🌙</h1>
-<p>Loading Uwaysh's Journey...</p>
+<p>The Unexpected Journey Begins...</p>
 
-<audio id="eidMusic" autoplay loop>
+<button class="startBtn" onclick="enterSite()">
+ENTER
+</button>
+
+<audio id="eidMusic" loop>
 <source src="eid.mp3" type="audio/mpeg">
 </audio>
 
@@ -172,7 +173,7 @@ grid-template-columns:repeat(3,1fr);
 
 <!-- HERO -->
 
-<div class="hero">
+<div class="hero" id="hero">
 
 <h1>🌍 Uwaysh's Kahani</h1>
 <p>13 stages. 13 gifts. One unforgettable journey.</p>
@@ -183,7 +184,7 @@ START THE JOURNEY
 
 </div>
 
-<!-- JOURNEY GRID -->
+<!-- GRID -->
 
 <div class="section" id="journey">
 
@@ -206,8 +207,8 @@ START THE JOURNEY
 <div>
 
 <button class="btn" onclick="backToGrid()">Back</button>
-
 <button class="btn" onclick="nextStage()">Next</button>
+<button class="btn" onclick="exitJourney()">Exit</button>
 
 </div>
 
@@ -216,47 +217,51 @@ START THE JOURNEY
 
 <script>
 
-/* INTRO TIMER */
+/* MUSIC START */
 
-setTimeout(()=>{
+function enterSite(){
+
+document.getElementById("eidMusic").play()
+
 document.getElementById("intro").style.display="none"
-},2000)
+document.getElementById("hero").style.display="flex"
 
-/* GIFT DATA */
+}
+
+/* GIFTS */
 
 const gifts=[
 
-["Football Socks","Completely unrelated. Just thought you'd like them."],
+["1️⃣ Football Socks","Completely unrelated. Just thought you'd like them."],
 
-["Rubber Gloves","Now we start looking the part."],
+["2️⃣ Rubber Gloves","Now we start looking the part."],
 
-["Wipes","Things are about to get messy."],
+["3️⃣ Wipes","Things are about to get messy."],
 
-["Apron","Put this on and suddenly everyone assumes you're a professional."],
+["4️⃣ Apron","Put this on and suddenly everyone assumes you're a professional."],
 
-["Spray Bottle","A true master knows one rule: keep things juicy."],
+["5️⃣ Spray Bottle","A true master knows one rule: keep things juicy."],
 
-["Spatula Set","Now we're getting serious."],
+["6️⃣ Spatula Set","Now we're getting serious."],
 
-["Small Burger Press","For the little one someday."],
+["7️⃣ Small Burger Press","For the little one someday."],
 
-["Small Dome","Again… purely for the little one."],
+["8️⃣ Small Dome","Again… purely for the little one."],
 
-["Burger Press","For doing things properly."],
+["9️⃣ Burger Press","For doing things properly."],
 
-["Big Dome","The secret weapon."],
+["🔟 Big Dome","The secret weapon."],
 
-["Coal","The heart of it all."],
+["1️⃣1️⃣ Coal","The heart of it all."],
 
-["Cast Iron Plate","Now you're performing."],
+["1️⃣2️⃣ Cast Iron Plate","Now you're performing."],
 
-["THE BBQ","Your journey begins now 🔥"]
+["1️⃣3️⃣ THE BBQ","Your journey begins now 🔥"]
 
 ]
 
 let unlocked=1
 let currentStage=1
-
 
 /* START JOURNEY */
 
@@ -264,19 +269,19 @@ function startJourney(){
 
 document.getElementById("eidMusic").pause()
 
-document.querySelector(".hero").style.display="none"
+document.getElementById("hero").style.display="none"
 document.getElementById("journey").style.display="block"
 
 buildStages()
 
 }
 
-
-/* BUILD STAGE GRID */
+/* BUILD GRID */
 
 function buildStages(){
 
 const grid=document.getElementById("grid")
+grid.innerHTML=""
 
 for(let i=1;i<=13;i++){
 
@@ -296,7 +301,6 @@ grid.appendChild(div)
 
 }
 
-
 /* OPEN STAGE */
 
 function openStage(n){
@@ -305,9 +309,11 @@ if(n>unlocked) return
 
 currentStage=n
 
+if(n<13){
+
 new Audio("open.mp3").play()
 
-if(navigator.vibrate) navigator.vibrate(100)
+}
 
 document.getElementById("giftTitle").innerText=gifts[n-1][0]
 document.getElementById("giftText").innerText=gifts[n-1][1]
@@ -331,7 +337,6 @@ document.getElementById("bbqImage").style.display="none"
 
 }
 
-
 /* BACK */
 
 function backToGrid(){
@@ -341,7 +346,6 @@ document.getElementById("journey").style.display="block"
 
 }
 
-
 /* NEXT */
 
 function nextStage(){
@@ -350,16 +354,23 @@ if(currentStage<13){
 
 unlocked=Math.max(unlocked,currentStage+1)
 
-document.querySelectorAll(".stage").forEach((s,i)=>{
-if(i+1<=unlocked) s.classList.remove("locked")
-})
+buildStages()
 
-openStage(currentStage+1)
+backToGrid()
 
 }
 
 }
 
+/* EXIT */
+
+function exitJourney(){
+
+document.getElementById("stageScreen").style.display="none"
+document.getElementById("journey").style.display="none"
+document.getElementById("hero").style.display="flex"
+
+}
 
 /* CONFETTI */
 
