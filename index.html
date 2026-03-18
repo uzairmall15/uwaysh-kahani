@@ -135,9 +135,8 @@ font-size:18px;
 max-width:100%;
 width:90%;
 border-radius:10px;
-margin-top:15px;
-opacity:0;
-transition:opacity .6s ease;
+margin-top:12px;
+display:none;
 }
 
 /* BUTTONS */
@@ -387,12 +386,12 @@ setTimeout(type,18)
 
 enableButtons()
 
-giftImage.style.opacity="1"
+giftImage.style.display="block"
 
 if(stage==12){
 
-giftImage.style.opacity="0"
-bbqImage.style.opacity="1"
+giftImage.style.display="none"
+bbqImage.style.display="block"
 
 backBtn.style.display="none"
 nextBtn.style.display="none"
@@ -424,9 +423,9 @@ stageScreen.style.display="flex"
 giftTitle.innerText=gifts[i][0]
 
 giftImage.src=gifts[i][1]
-giftImage.style.opacity="0"
+giftImage.style.display="none"
 
-bbqImage.style.opacity="0"
+bbqImage.style.display="none"
 
 typeWriter(gifts[i][2],giftText,i)
 
