@@ -14,6 +14,8 @@ color:white;
 text-align:center;
 }
 
+/* INTRO */
+
 .intro{
 position:fixed;
 top:0;
@@ -28,6 +30,8 @@ align-items:center;
 z-index:999;
 }
 
+/* HERO */
+
 .hero{
 height:100vh;
 background:url("hero.png") center/contain no-repeat;
@@ -37,6 +41,8 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 }
+
+/* BUTTON */
 
 .startBtn{
 margin-top:30px;
@@ -49,12 +55,16 @@ color:white;
 cursor:pointer;
 }
 
+/* JOURNEY */
+
 .section{
 display:none;
 padding:40px 20px;
 max-width:900px;
 margin:auto;
 }
+
+/* GRID */
 
 .grid{
 display:grid;
@@ -86,6 +96,8 @@ font-size:40px;
 margin-bottom:10px;
 }
 
+/* FULLSCREEN */
+
 .fullscreen{
 position:fixed;
 top:0;
@@ -96,24 +108,27 @@ background:#0b0b0b;
 display:none;
 flex-direction:column;
 align-items:center;
-padding:40px 20px;
+padding:40px 15px;
 overflow-y:auto;
 z-index:1000;
 }
 
+/* STORY CARD */
+
 .storyCard{
 max-width:700px;
-width:90%;
+width:100%;
 white-space:pre-line;
 background:#141414;
-padding:30px;
+padding:28px;
 border-radius:12px;
 margin-top:20px;
-line-height:1.7;
+line-height:1.6;
 font-size:18px;
 box-shadow:0 0 30px rgba(255,140,0,0.15);
-margin-bottom:20px;
 }
+
+/* BBQ IMAGE */
 
 .fullscreen img{
 max-width:380px;
@@ -123,6 +138,8 @@ margin-top:25px;
 height:auto;
 display:none;
 }
+
+/* BUTTONS */
 
 .btn{
 padding:12px 25px;
@@ -135,12 +152,21 @@ cursor:pointer;
 font-size:16px;
 }
 
+.btn:disabled{
+opacity:0.4;
+cursor:not-allowed;
+}
+
+/* CONFETTI */
+
 canvas{
 position:fixed;
 top:0;
 left:0;
 pointer-events:none;
 }
+
+/* MOBILE */
 
 @media(max-width:700px){
 
@@ -150,11 +176,11 @@ grid-template-columns:repeat(2,1fr);
 
 .storyCard{
 font-size:16px;
-padding:22px;
+padding:20px;
 }
 
 .fullscreen img{
-max-width:300px;
+max-width:280px;
 }
 
 }
@@ -167,8 +193,10 @@ max-width:300px;
 <canvas id="confetti"></canvas>
 
 <div class="intro" id="intro">
+
 <h1>EID MUBARAK 🌙</h1>
 <p>The Unexpected Journey Begins...</p>
+
 <button class="startBtn" onclick="enterSite()">ENTER</button>
 
 <audio id="eidMusic" loop>
@@ -182,12 +210,16 @@ max-width:300px;
 <audio id="celebration">
 <source src="celebration.mp3">
 </audio>
+
 </div>
 
 <div class="hero" id="hero">
+
 <h1>🌍 Uwaysh's Kahani</h1>
 <p>13 stages. 13 gifts. One unforgettable journey.</p>
+
 <button class="startBtn" onclick="startJourney()">START THE JOURNEY</button>
+
 </div>
 
 <div class="section" id="journey">
@@ -232,17 +264,19 @@ Trust the process.
 <img id="bbqImage" src="bbq.png">
 
 <div>
+
 <button class="btn" id="backBtn" onclick="backToGrid()">Back</button>
 <button class="btn" id="nextBtn" onclick="nextStage()">Next</button>
 <button class="btn" id="exitBtn" onclick="exitJourney()">Exit</button>
 <button class="btn" id="homeBtn" onclick="goHome()" style="display:none;">Back to Home</button>
+
 </div>
 
 </div>
 
 <script>
 
-let currentStage=0
+let currentStage = 0
 
 const gifts=[
 
@@ -282,9 +316,7 @@ You are now officially in charge.`],
 
 ["5️⃣ Spray Bottle",`A true master understands one important rule:
 
-Keep things juicy.
-
-This helps with that.`],
+Keep things juicy.`],
 
 ["6️⃣ BBQ Tools",`Now we’re getting serious.
 
@@ -292,35 +324,19 @@ These are the tools used by real professionals.
 
 Please try not to launch anything across the garden.`],
 
-["7️⃣ Small Burger Press",`Purely for the little one someday…
+["7️⃣ Small Burger Press",`Purely for the little one someday… Inshallah.`],
 
-Inshallah.`],
-
-["8️⃣ Small Dome",`Again…
-
-purely for the little one someday, Inshallah.`],
+["8️⃣ Small Dome",`Again… purely for the little one someday, Inshallah.`],
 
 ["9️⃣ Burger Press",`For doing things properly.
 
 Not the "flatten it with a pot and hope for the best" technique.`],
 
-["🔟 Big Dome",`The secret weapon.
+["🔟 Big Dome",`The secret weapon.`],
 
-Place this over the top and watch everything melt perfectly.
+["1️⃣1️⃣ Coal",`The heart of it all.`],
 
-Because doing things halfway is simply unacceptable.`],
-
-["1️⃣1️⃣ Coal",`The heart of it all.
-
-Without this…
-
-you’re just standing outside holding equipment and looking confused.`],
-
-["1️⃣2️⃣ Cast Iron Plate",`Now this is serious equipment.
-
-At this point you’re no longer just cooking.
-
-You’re performing.`],
+["1️⃣2️⃣ Cast Iron Plate",`Now this is serious equipment.`],
 
 ["1️⃣3️⃣ BBQ",`And finally…
 
@@ -337,7 +353,23 @@ Your journey officially begins now. 🔥🍔`]
 
 ]
 
+function disableButtons(){
+document.getElementById("backBtn").disabled=true
+document.getElementById("nextBtn").disabled=true
+document.getElementById("exitBtn").disabled=true
+document.getElementById("homeBtn").disabled=true
+}
+
+function enableButtons(){
+document.getElementById("backBtn").disabled=false
+document.getElementById("nextBtn").disabled=false
+document.getElementById("exitBtn").disabled=false
+document.getElementById("homeBtn").disabled=false
+}
+
 function typeWriter(text,element,stage){
+
+disableButtons()
 
 element.textContent=""
 let i=0
@@ -345,10 +377,14 @@ let i=0
 function type(){
 
 if(i<text.length){
+
 element.textContent+=text.charAt(i)
 i++
-setTimeout(type,20)
+setTimeout(type,18)
+
 }else{
+
+enableButtons()
 
 if(stage==12){
 
@@ -382,7 +418,7 @@ document.getElementById("openSound").play()
 document.getElementById("journey").style.display="none"
 document.getElementById("stageScreen").style.display="flex"
 
-document.getElementById("giftTitle").textContent=gifts[i][0]
+document.getElementById("giftTitle").innerText=gifts[i][0]
 
 document.getElementById("bbqImage").style.display="none"
 
@@ -394,7 +430,7 @@ currentStage=i
 
 function nextStage(){
 
-if(currentStage<gifts.length-1)
+if(currentStage < gifts.length-1)
 currentStage++
 
 generateGrid()
