@@ -118,6 +118,26 @@ min-height:200px;
 max-width:350px;
 border-radius:10px;
 margin-top:20px;
+transition:transform 3s ease;
+}
+
+.bbqZoom{
+transform:scale(1.15);
+}
+
+.bbqGlow{
+position:absolute;
+width:500px;
+height:500px;
+background:radial-gradient(circle,#ff8c00 0%,transparent 60%);
+filter:blur(80px);
+opacity:.8;
+animation:fireGlow 2s infinite alternate;
+}
+
+@keyframes fireGlow{
+from{transform:scale(1)}
+to{transform:scale(1.2)}
 }
 
 .btn{
@@ -129,6 +149,11 @@ border-radius:6px;
 margin:10px;
 cursor:pointer;
 font-size:16px;
+}
+
+.btn:disabled{
+opacity:.4;
+cursor:not-allowed;
 }
 
 canvas{
@@ -166,7 +191,6 @@ pointer-events:none;
 
 </div>
 
-
 <div class="hero" id="hero">
 
 <h1>🌍 Uwaysh's Kahani</h1>
@@ -176,7 +200,6 @@ pointer-events:none;
 
 </div>
 
-
 <div class="section" id="journey">
 
 <h2>EID MUBARAK 🌙</h2>
@@ -185,17 +208,10 @@ pointer-events:none;
 <p style="max-width:700px;margin:auto">
 
 Every legend has a story.<br><br>
-
 Some start with years of training.<br>
 Others start with a random box of questionable gifts.<br><br>
 
 Today… your journey begins.<br><br>
-
-Inside this box are items that will slowly transform you into something special.<br><br>
-
-Some are essential.<br>
-Some are for appearances.<br>
-And one… has absolutely nothing to do with the rest.<br><br>
 
 Follow the numbers in order.<br>
 No skipping ahead.<br><br>
@@ -210,8 +226,9 @@ Trust the process.
 
 </div>
 
-
 <div class="fullscreen" id="stageScreen">
+
+<div id="bbqGlow" class="bbqGlow" style="display:none"></div>
 
 <h2 id="giftTitle" style="font-size:32px;margin-bottom:10px;"></h2>
 
@@ -221,18 +238,18 @@ Trust the process.
 
 <div>
 
-<button class="btn" onclick="backToGrid()">Back</button>
-<button class="btn" onclick="nextStage()">Next</button>
-<button class="btn" onclick="exitJourney()">Exit</button>
+<button class="btn" id="backBtn" onclick="backToGrid()" disabled>Back</button>
+<button class="btn" id="nextBtn" onclick="nextStage()" disabled>Next</button>
+<button class="btn" id="exitBtn" onclick="exitJourney()" disabled>Exit</button>
 
 </div>
 
 </div>
-
 
 <script>
 
-let currentStage = 0
+let currentStage=0
+let typing=false
 
 const gifts=[
 
@@ -274,7 +291,7 @@ You are now officially in charge.`],
 
 Keep things juicy.`],
 
-["6️⃣ BBQ Tools",`Now we’re getting serious.
+["6️⃣ Spatula Set",`Now we’re getting serious.
 
 These are the tools used by real professionals.
 
@@ -284,11 +301,11 @@ Please try not to launch anything across the garden.`],
 
 ["8️⃣ Small Dome",`Again…
 
-Purely for the little one someday.`],
+purely for the little one someday.`],
 
 ["9️⃣ Burger Press",`For doing things properly.
 
-Not the "Flatten it with a pot and hope for the best" technique.`],
+Not the "flatten it with a pot and hope for the best" technique.`],
 
 ["🔟 Big Dome",`The secret weapon.
 
@@ -298,7 +315,7 @@ Place this over the top and watch everything melt perfectly.`],
 
 Without this…
 
-You’re just standing outside holding equipment and looking confused.`],
+you’re just standing outside holding equipment and looking confused.`],
 
 ["1️⃣2️⃣ Cast Iron Plate",`Now this is serious equipment.
 
@@ -312,7 +329,7 @@ Every master eventually reaches this moment.
 
 After all the preparation, tools, and training…
 
-There was only one thing missing.
+there was only one thing missing.
 
 The tools are ready.
 The fire is ready.
@@ -320,10 +337,6 @@ The fire is ready.
 Your journey officially begins now. 🔥🍔`]
 
 ]
-
-function playOpen(){
-document.getElementById("openSound").play()
-}
 
 function enterSite(){
 document.getElementById("eidMusic").play()
@@ -349,7 +362,6 @@ stage.className="stage"
 if(i>currentStage) stage.classList.add("locked")
 
 stage.innerHTML=`<div class="box">🎁</div>Stage ${i+1}`
-
 stage.onclick=()=>openStage(i)
 
 grid.appendChild(stage)
@@ -360,15 +372,29 @@ grid.appendChild(stage)
 
 function typeWriter(text,element){
 
+typing=true
 element.textContent=""
 let i=0
 
+document.getElementById("backBtn").disabled=true
+document.getElementById("nextBtn").disabled=true
+document.getElementById("exitBtn").disabled=true
+
 function type(){
+
 if(i<text.length){
 element.textContent+=text.charAt(i)
 i++
 setTimeout(type,20)
+}else{
+
+typing=false
+document.getElementById("backBtn").disabled=false
+document.getElementById("nextBtn").disabled=false
+document.getElementById("exitBtn").disabled=false
+
 }
+
 }
 
 type()
@@ -379,7 +405,7 @@ function openStage(i){
 
 if(i>currentStage) return
 
-playOpen()
+document.getElementById("openSound").play()
 
 document.getElementById("journey").style.display="none"
 document.getElementById("stageScreen").style.display="flex"
@@ -389,11 +415,21 @@ document.getElementById("giftTitle").textContent=gifts[i][0]
 typeWriter(gifts[i][1],document.getElementById("giftText"))
 
 if(i==12){
+
 document.getElementById("bbqImage").style.display="block"
+document.getElementById("bbqGlow").style.display="block"
+document.getElementById("bbqImage").classList.add("bbqZoom")
+
 document.getElementById("celebration").play()
+
 startConfetti()
+
 }else{
+
 document.getElementById("bbqImage").style.display="none"
+document.getElementById("bbqGlow").style.display="none"
+document.getElementById("bbqImage").classList.remove("bbqZoom")
+
 }
 
 currentStage=i
@@ -402,7 +438,7 @@ currentStage=i
 
 function nextStage(){
 
-if(currentStage < gifts.length-1)
+if(currentStage<gifts.length-1)
 currentStage++
 
 generateGrid()
@@ -411,8 +447,10 @@ backToGrid()
 }
 
 function backToGrid(){
+
 document.getElementById("stageScreen").style.display="none"
 document.getElementById("journey").style.display="block"
+
 }
 
 function exitJourney(){
