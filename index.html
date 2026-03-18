@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Uwaysh's Kahani</title>
 
 <style>
@@ -11,6 +12,7 @@ margin:0;
 font-family:Arial;
 background:#0b0b0b;
 color:white;
+line-height:1.6;
 }
 
 .hero{
@@ -29,48 +31,45 @@ padding:40px;
 border-radius:12px;
 }
 
-.timeline{
-max-width:700px;
+.section{
+max-width:800px;
 margin:auto;
-padding:40px;
+padding:60px 20px;
 }
 
-.stage{
-background:#1e1e1e;
-padding:20px;
-margin:20px 0;
+.card{
+background:#141414;
+padding:30px;
 border-radius:10px;
-cursor:pointer;
+margin-bottom:30px;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
 }
 
-.stage h2{
+h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+h2{
 color:#ff8c00;
 }
 
-.gift{
-display:none;
-color:#ffd54f;
-font-weight:bold;
-margin-top:10px;
+.intro{
+text-align:center;
+font-size:18px;
+}
+
+.final{
+text-align:center;
+}
+
+.final img{
+max-width:350px;
+border-radius:10px;
+margin-top:20px;
 }
 
 </style>
-
-<script>
-
-function reveal(id){
-
-let gift=document.getElementById(id)
-
-if(gift.style.display=="block"){
-gift.style.display="none"
-}else{
-gift.style.display="block"
-}
-
-}
-
-</script>
 
 </head>
 
@@ -78,79 +77,156 @@ gift.style.display="block"
 
 <div class="hero">
 <div class="overlay">
-
 <h1>🌍 Uwaysh's Kahani</h1>
-
 <p>13 stages. 13 gifts. One unforgettable journey.</p>
-
 </div>
 </div>
 
-<div class="timeline">
+<div class="section intro">
 
-<div class="stage" onclick="reveal('g1')">
-<h2>🔥 Stage 1 — The Grill Master</h2>
-<div class="gift" id="g1">🎁 Gift: Grill Master Apron</div>
+<h1>EID MUBARAK 🌙</h1>
+
+<h2>THE UNEXPECTED JOURNEY 🔥</h2>
+
+<p>Every legend has a story.</p>
+
+<p>Some start with years of training.<br>
+Others start with a random box of questionable gifts.</p>
+
+<p>Today… your journey begins.</p>
+
+<p>Inside this box are items that will slowly transform you into something special.</p>
+
+<p>Some are essential.<br>
+Some are for appearances.<br>
+And one… has absolutely nothing to do with the rest.</p>
+
+<p><strong>Follow the numbers in order.<br>
+No skipping ahead.</strong></p>
+
+<p>Trust the process.</p>
+
 </div>
 
-<div class="stage" onclick="reveal('g2')">
-<h2>🧭 Stage 2 — The Journey Begins</h2>
-<div class="gift" id="g2">🎁 Gift: Travel Journal</div>
+<div class="section">
+
+<div class="card">
+<h2>1️⃣ Football Socks</h2>
+<p>This has absolutely nothing to do with the rest of the gifts.<br>
+No theme. No hidden meaning.</p>
+<p>I just saw them and thought:<br>
+“Yeah… he’d probably like those.”</p>
+<p>Consider this the warm-up round.</p>
 </div>
 
-<div class="stage" onclick="reveal('g3')">
-<h2>🌍 Stage 3 — The Explorer</h2>
-<div class="gift" id="g3">🎁 Gift: World Map</div>
+<div class="card">
+<h2>2️⃣ Rubber Gloves</h2>
+<p>Now we start looking the part.<br>
+Handling things like a professional requires clean hands and confidence.</p>
+<p>This helps with the clean part.<br>
+The confidence is up to you.</p>
 </div>
 
-<div class="stage" onclick="reveal('g4')">
-<h2>⚔ Stage 4 — The Challenge</h2>
-<div class="gift" id="g4">🎁 Gift: Surprise Gift</div>
+<div class="card">
+<h2>3️⃣ Wipes</h2>
+<p>Things are about to get messy.</p>
+<p>This will help clean things up…<br>
+or wipe away the panic when things start going wrong.</p>
 </div>
 
-<div class="stage" onclick="reveal('g5')">
-<h2>🏔 Stage 5 — The Mountain</h2>
-<div class="gift" id="g5">🎁 Gift: Adventure Item</div>
+<div class="card">
+<h2>4️⃣ Apron</h2>
+<p>Now the transformation begins.</p>
+<p>Put this on and suddenly everyone assumes you know exactly what you're doing.</p>
+
+<p>Congratulations.<br>
+You are now officially in charge.</p>
 </div>
 
-<div class="stage" onclick="reveal('g6')">
-<h2>🌊 Stage 6 — The Unknown</h2>
-<div class="gift" id="g6">🎁 Gift: Mystery Gift</div>
+<div class="card">
+<h2>5️⃣ Spray Bottle</h2>
+<p>A true master understands one important rule:</p>
+
+<p><strong>Keep things juicy.</strong></p>
+
+<p>This helps with that.</p>
 </div>
 
-<div class="stage" onclick="reveal('g7')">
-<h2>🧠 Stage 7 — Wisdom</h2>
-<div class="gift" id="g7">🎁 Gift: Thoughtful Gift</div>
+<div class="card">
+<h2>6️⃣ Spatula Set</h2>
+<p>Now we're getting serious.</p>
+
+<p>These are the tools used by real professionals.</p>
+
+<p>Please try not to launch anything across the garden.</p>
 </div>
 
-<div class="stage" onclick="reveal('g8')">
-<h2>🔥 Stage 8 — Fire Returns</h2>
-<div class="gift" id="g8">🎁 Gift: BBQ Surprise</div>
+<div class="card">
+<h2>7️⃣ Small Burger Press</h2>
+<p>Purely for the little one someday.</p>
 </div>
 
-<div class="stage" onclick="reveal('g9')">
-<h2>🌟 Stage 9 — The Rise</h2>
-<div class="gift" id="g9">🎁 Gift: Special Gift</div>
+<div class="card">
+<h2>8️⃣ Small Dome</h2>
+<p>Again… purely for the little one someday.</p>
 </div>
 
-<div class="stage" onclick="reveal('g10')">
-<h2>🚀 Stage 10 — The Future</h2>
-<div class="gift" id="g10">🎁 Gift: Future Adventure</div>
+<div class="card">
+<h2>9️⃣ Burger Press</h2>
+<p>For doing things properly.</p>
+
+<p>Not the “flatten it with a pot and hope for the best” technique.</p>
 </div>
 
-<div class="stage" onclick="reveal('g11')">
-<h2>🏆 Stage 11 — The Champion</h2>
-<div class="gift" id="g11">🎁 Gift: Victory Gift</div>
+<div class="card">
+<h2>🔟 Big Dome</h2>
+
+<p>The secret weapon.</p>
+
+<p>Place this over the top and watch everything melt perfectly.</p>
+
+<p>Because doing things halfway is simply unacceptable.</p>
+
 </div>
 
-<div class="stage" onclick="reveal('g12')">
-<h2>🌌 Stage 12 — Beyond</h2>
-<div class="gift" id="g12">🎁 Gift: Hidden Surprise</div>
+<div class="card">
+<h2>1️⃣1️⃣ Coal</h2>
+
+<p>The heart of it all.</p>
+
+<p>Without this… you're just standing outside holding equipment and looking confused.</p>
+
 </div>
 
-<div class="stage" onclick="reveal('g13')">
-<h2>👑 Stage 13 — The Legend</h2>
-<div class="gift" id="g13">🎁 Gift: Final Gift</div>
+<div class="card">
+<h2>1️⃣2️⃣ Cast Iron Plate</h2>
+
+<p>Now this is serious equipment.</p>
+
+<p>At this point you're no longer just cooking.</p>
+
+<p><strong>You're performing.</strong></p>
+
+</div>
+
+<div class="card final">
+
+<h2>1️⃣3️⃣ THE BBQ 🔥</h2>
+
+<p>And finally…</p>
+
+<p>Every master eventually reaches this moment.</p>
+
+<p>After all the preparation, tools, and training…<br>
+there was only one thing missing.</p>
+
+<p>The tools are ready.<br>
+The fire is ready.</p>
+
+<h2>Your journey officially begins now. 🔥🍔</h2>
+
+<img src="bbq.png">
+
 </div>
 
 </div>
