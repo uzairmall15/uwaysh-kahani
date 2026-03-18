@@ -118,26 +118,6 @@ min-height:200px;
 max-width:350px;
 border-radius:10px;
 margin-top:20px;
-transition:transform 3s ease;
-}
-
-.bbqZoom{
-transform:scale(1.15);
-}
-
-.bbqGlow{
-position:absolute;
-width:500px;
-height:500px;
-background:radial-gradient(circle,#ff8c00 0%,transparent 60%);
-filter:blur(80px);
-opacity:.8;
-animation:fireGlow 2s infinite alternate;
-}
-
-@keyframes fireGlow{
-from{transform:scale(1)}
-to{transform:scale(1.2)}
 }
 
 .btn{
@@ -205,21 +185,6 @@ pointer-events:none;
 <h2>EID MUBARAK 🌙</h2>
 <h3>THE UNEXPECTED JOURNEY 🔥</h3>
 
-<p style="max-width:700px;margin:auto">
-
-Every legend has a story.<br><br>
-Some start with years of training.<br>
-Others start with a random box of questionable gifts.<br><br>
-
-Today… your journey begins.<br><br>
-
-Follow the numbers in order.<br>
-No skipping ahead.<br><br>
-
-Trust the process.
-
-</p>
-
 <h3 style="margin-top:40px">OPEN IN ORDER</h3>
 
 <div class="grid" id="grid"></div>
@@ -228,9 +193,7 @@ Trust the process.
 
 <div class="fullscreen" id="stageScreen">
 
-<div id="bbqGlow" class="bbqGlow" style="display:none"></div>
-
-<h2 id="giftTitle" style="font-size:32px;margin-bottom:10px;"></h2>
+<h2 id="giftTitle"></h2>
 
 <div id="giftText" class="storyCard"></div>
 
@@ -241,6 +204,7 @@ Trust the process.
 <button class="btn" id="backBtn" onclick="backToGrid()" disabled>Back</button>
 <button class="btn" id="nextBtn" onclick="nextStage()" disabled>Next</button>
 <button class="btn" id="exitBtn" onclick="exitJourney()" disabled>Exit</button>
+<button class="btn" id="homeBtn" onclick="goHome()" style="display:none;">Back to Home</button>
 
 </div>
 
@@ -249,79 +213,36 @@ Trust the process.
 <script>
 
 let currentStage=0
-let typing=false
 
 const gifts=[
 
 ["1️⃣ Football Socks",`We’re starting strong.
 
-This has absolutely nothing to do with the rest of the gifts.
+This has absolutely nothing to do with the rest of the gifts.`],
 
-No theme.
-No hidden meaning.
+["2️⃣ Rubber Gloves",`Now we start looking the part.`],
 
-I just saw them and thought:
-“Yeah… he’d probably like those.”
+["3️⃣ Wipes",`Things are about to get messy.`],
 
-Consider this the warm-up round.`],
+["4️⃣ Apron",`Now the transformation begins.`],
 
-["2️⃣ Rubber Gloves",`Now we start looking the part.
+["5️⃣ Spray Bottle",`Keep things juicy.`],
 
-Handling things like a professional requires clean hands and confidence.
+["6️⃣ BBQ Tools",`Now we’re getting serious.
 
-This helps with the clean part.
+These are the tools used by real professionals.`],
 
-The confidence is up to you.`],
+["7️⃣ Small Burger Press",`Purely for the little one someday… Inshallah.`],
 
-["3️⃣ Wipes",`Things are about to get messy.
+["8️⃣ Small Dome",`Again… purely for the little one someday, Inshallah.`],
 
-This will help clean things up…
+["9️⃣ Burger Press",`For doing things properly.`],
 
-or wipe away the panic when things start going wrong.`],
+["🔟 Big Dome",`The secret weapon.`],
 
-["4️⃣ Apron",`Now the transformation begins.
+["1️⃣1️⃣ Coal",`The heart of it all.`],
 
-Put this on and suddenly everyone assumes you know exactly what you're doing.
-
-Congratulations.
-
-You are now officially in charge.`],
-
-["5️⃣ Spray Bottle",`A true master understands one important rule:
-
-Keep things juicy.`],
-
-["6️⃣ Spatula Set",`Now we’re getting serious.
-
-These are the tools used by real professionals.
-
-Please try not to launch anything across the garden.`],
-
-["7️⃣ Small Burger Press",`Purely for the little one someday.`],
-
-["8️⃣ Small Dome",`Again…
-
-purely for the little one someday.`],
-
-["9️⃣ Burger Press",`For doing things properly.
-
-Not the "flatten it with a pot and hope for the best" technique.`],
-
-["🔟 Big Dome",`The secret weapon.
-
-Place this over the top and watch everything melt perfectly.`],
-
-["1️⃣1️⃣ Coal",`The heart of it all.
-
-Without this…
-
-you’re just standing outside holding equipment and looking confused.`],
-
-["1️⃣2️⃣ Cast Iron Plate",`Now this is serious equipment.
-
-At this point you're no longer just cooking.
-
-You're performing.`],
+["1️⃣2️⃣ Cast Iron Plate",`Now this is serious equipment.`],
 
 ["1️⃣3️⃣ BBQ",`And finally…
 
@@ -329,50 +250,12 @@ Every master eventually reaches this moment.
 
 After all the preparation, tools, and training…
 
-there was only one thing missing.
-
-The tools are ready.
-The fire is ready.
-
-Your journey officially begins now. 🔥🍔`]
+there was only one thing missing.`]
 
 ]
 
-function enterSite(){
-document.getElementById("eidMusic").play()
-document.getElementById("intro").style.display="none"
-}
-
-function startJourney(){
-document.getElementById("hero").style.display="none"
-document.getElementById("journey").style.display="block"
-generateGrid()
-}
-
-function generateGrid(){
-
-const grid=document.getElementById("grid")
-grid.innerHTML=""
-
-for(let i=0;i<gifts.length;i++){
-
-const stage=document.createElement("div")
-stage.className="stage"
-
-if(i>currentStage) stage.classList.add("locked")
-
-stage.innerHTML=`<div class="box">🎁</div>Stage ${i+1}`
-stage.onclick=()=>openStage(i)
-
-grid.appendChild(stage)
-
-}
-
-}
-
 function typeWriter(text,element){
 
-typing=true
 element.textContent=""
 let i=0
 
@@ -388,7 +271,6 @@ i++
 setTimeout(type,20)
 }else{
 
-typing=false
 document.getElementById("backBtn").disabled=false
 document.getElementById("nextBtn").disabled=false
 document.getElementById("exitBtn").disabled=false
@@ -415,21 +297,13 @@ document.getElementById("giftTitle").textContent=gifts[i][0]
 typeWriter(gifts[i][1],document.getElementById("giftText"))
 
 if(i==12){
-
 document.getElementById("bbqImage").style.display="block"
-document.getElementById("bbqGlow").style.display="block"
-document.getElementById("bbqImage").classList.add("bbqZoom")
-
+document.getElementById("homeBtn").style.display="inline-block"
 document.getElementById("celebration").play()
-
 startConfetti()
-
 }else{
-
 document.getElementById("bbqImage").style.display="none"
-document.getElementById("bbqGlow").style.display="none"
-document.getElementById("bbqImage").classList.remove("bbqZoom")
-
+document.getElementById("homeBtn").style.display="none"
 }
 
 currentStage=i
@@ -451,6 +325,46 @@ function backToGrid(){
 document.getElementById("stageScreen").style.display="none"
 document.getElementById("journey").style.display="block"
 
+}
+
+function goHome(){
+
+document.getElementById("stageScreen").style.display="none"
+document.getElementById("hero").style.display="flex"
+
+}
+
+function generateGrid(){
+
+const grid=document.getElementById("grid")
+grid.innerHTML=""
+
+for(let i=0;i<gifts.length;i++){
+
+const stage=document.createElement("div")
+stage.className="stage"
+
+if(i>currentStage) stage.classList.add("locked")
+
+stage.innerHTML=`<div class="box">🎁</div>Stage ${i+1}`
+
+stage.onclick=()=>openStage(i)
+
+grid.appendChild(stage)
+
+}
+
+}
+
+function startJourney(){
+document.getElementById("hero").style.display="none"
+document.getElementById("journey").style.display="block"
+generateGrid()
+}
+
+function enterSite(){
+document.getElementById("eidMusic").play()
+document.getElementById("intro").style.display="none"
 }
 
 function exitJourney(){
