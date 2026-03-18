@@ -15,6 +15,29 @@ color:white;
 text-align:center;
 }
 
+/* INTRO */
+
+.intro{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.intro h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+/* HERO */
+
 .hero{
 height:100vh;
 background:url("hero.png") center/contain no-repeat;
@@ -23,10 +46,6 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-}
-
-.hero h1{
-font-size:42px;
 }
 
 .startBtn{
@@ -40,9 +59,11 @@ color:white;
 cursor:pointer;
 }
 
+/* GRID */
+
 .section{
 display:none;
-padding:50px 20px;
+padding:40px 20px;
 max-width:900px;
 margin:auto;
 }
@@ -77,29 +98,41 @@ font-size:40px;
 margin-bottom:10px;
 }
 
-.card{
+/* FULLSCREEN CARD */
+
+.fullscreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#0b0b0b;
 display:none;
-background:#141414;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 padding:30px;
-border-radius:10px;
-margin-top:40px;
+z-index:1000;
 }
 
-.card img{
-max-width:320px;
+.fullscreen img{
+max-width:350px;
 border-radius:10px;
 margin-top:20px;
 }
 
-.back{
-margin-top:20px;
-padding:10px 20px;
+.btn{
+padding:12px 25px;
 border:none;
 background:#ff8c00;
 color:white;
 border-radius:6px;
+margin:10px;
 cursor:pointer;
+font-size:16px;
 }
+
+/* CONFETTI */
 
 canvas{
 position:fixed;
@@ -124,6 +157,21 @@ grid-template-columns:repeat(3,1fr);
 
 <canvas id="confetti"></canvas>
 
+<!-- INTRO SCREEN -->
+
+<div class="intro" id="intro">
+
+<h1>EID MUBARAK 🌙</h1>
+<p>Loading Uwaysh's Journey...</p>
+
+<audio id="eidMusic" autoplay loop>
+<source src="eid.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+<!-- HERO -->
+
 <div class="hero">
 
 <h1>🌍 Uwaysh's Kahani</h1>
@@ -135,41 +183,64 @@ START THE JOURNEY
 
 </div>
 
+<!-- JOURNEY GRID -->
 
 <div class="section" id="journey">
 
-<h2>EID MUBARAK 🌙</h2>
-
-<p><b>THE UNEXPECTED JOURNEY 🔥</b></p>
-
-<p>Follow the stages in order.</p>
+<h2>THE UNEXPECTED JOURNEY 🔥</h2>
+<p>Open the gifts in order.</p>
 
 <div class="grid" id="grid"></div>
 
 </div>
 
-<div id="cards"></div>
+<!-- FULLSCREEN STAGE -->
+
+<div class="fullscreen" id="stageScreen">
+
+<h2 id="giftTitle"></h2>
+<p id="giftText"></p>
+
+<img id="bbqImage" src="bbq.png" style="display:none">
+
+<div>
+
+<button class="btn" onclick="backToGrid()">Back</button>
+
+<button class="btn" onclick="nextStage()">Next</button>
+
+</div>
+
+</div>
 
 
 <script>
 
+/* INTRO TIMER */
+
+setTimeout(()=>{
+document.getElementById("intro").style.display="none"
+},2000)
+
+/* GIFT DATA */
+
 const gifts=[
 
-["Football Socks","We’re starting strong. Completely unrelated to everything else."],
+["Football Socks","Completely unrelated. Just thought you'd like them."],
 
 ["Rubber Gloves","Now we start looking the part."],
 
 ["Wipes","Things are about to get messy."],
 
-["Apron","Put this on and suddenly everyone assumes you know what you're doing."],
+["Apron","Put this on and suddenly everyone assumes you're a professional."],
 
 ["Spray Bottle","A true master knows one rule: keep things juicy."],
 
 ["Spatula Set","Now we're getting serious."],
 
-["Small Burger Press","Purely for the little one someday."],
+["Small Burger Press","For the little one someday."],
 
-["Small Dome","Again… purely for the little one someday."],
+["Small Dome","Again… purely for the little one."],
 
 ["Burger Press","For doing things properly."],
 
@@ -179,14 +250,19 @@ const gifts=[
 
 ["Cast Iron Plate","Now you're performing."],
 
-["BBQ","Your journey begins now 🔥"]
+["THE BBQ","Your journey begins now 🔥"]
 
 ]
 
 let unlocked=1
+let currentStage=1
 
+
+/* START JOURNEY */
 
 function startJourney(){
+
+document.getElementById("eidMusic").pause()
 
 document.querySelector(".hero").style.display="none"
 document.getElementById("journey").style.display="block"
@@ -195,6 +271,8 @@ buildStages()
 
 }
 
+
+/* BUILD STAGE GRID */
 
 function buildStages(){
 
@@ -219,88 +297,71 @@ grid.appendChild(div)
 }
 
 
+/* OPEN STAGE */
 
 function openStage(n){
 
 if(n>unlocked) return
 
-showCard(n)
+currentStage=n
 
-if(n===unlocked && unlocked<13){
+new Audio("open.mp3").play()
 
-unlocked++
+if(navigator.vibrate) navigator.vibrate(100)
 
-updateLocks()
+document.getElementById("giftTitle").innerText=gifts[n-1][0]
+document.getElementById("giftText").innerText=gifts[n-1][1]
 
-}
+document.getElementById("stageScreen").style.display="flex"
+document.getElementById("journey").style.display="none"
 
 if(n===13){
+
+document.getElementById("bbqImage").style.display="block"
+
+new Audio("celebration.mp3").play()
 
 confetti()
 
-}
+}else{
+
+document.getElementById("bbqImage").style.display="none"
 
 }
 
+}
 
 
-function updateLocks(){
+/* BACK */
 
-document.querySelectorAll(".stage").forEach((el,i)=>{
+function backToGrid(){
 
-if(i+1<=unlocked){
-
-el.classList.remove("locked")
-
-el.querySelector(".box").innerHTML="🎁"
+document.getElementById("stageScreen").style.display="none"
+document.getElementById("journey").style.display="block"
 
 }
 
+
+/* NEXT */
+
+function nextStage(){
+
+if(currentStage<13){
+
+unlocked=Math.max(unlocked,currentStage+1)
+
+document.querySelectorAll(".stage").forEach((s,i)=>{
+if(i+1<=unlocked) s.classList.remove("locked")
 })
 
-}
-
-
-
-function showCard(n){
-
-const cards=document.getElementById("cards")
-
-cards.innerHTML=""
-
-let div=document.createElement("div")
-
-div.className="card"
-div.style.display="block"
-
-let content=`<h2>${n}️⃣ ${gifts[n-1][0]}</h2>
-<p>${gifts[n-1][1]}</p>`
-
-if(n===13){
-
-content+=`<img src="bbq.png">`
+openStage(currentStage+1)
 
 }
-
-content+=`<br><button class="back" onclick="closeCard()">Back</button>`
-
-div.innerHTML=content
-
-cards.appendChild(div)
-
-window.scrollTo({top:0,behavior:"smooth"})
 
 }
 
 
-
-function closeCard(){
-
-document.getElementById("cards").innerHTML=""
-
-}
-
-
+/* CONFETTI */
 
 function confetti(){
 
