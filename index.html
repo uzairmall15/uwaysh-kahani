@@ -12,8 +12,7 @@ margin:0;
 font-family:Arial;
 background:#0b0b0b;
 color:white;
-line-height:1.6;
-scroll-behavior:smooth;
+text-align:center;
 }
 
 .hero{
@@ -21,76 +20,100 @@ height:100vh;
 background:url("hero.png") center/contain no-repeat;
 background-color:#0b0b0b;
 display:flex;
+flex-direction:column;
 align-items:center;
 justify-content:center;
-text-align:center;
-position:relative;
 }
 
-.overlay{
-background:rgba(0,0,0,0.6);
-padding:40px;
-border-radius:12px;
-animation:fadeIn 2s ease;
+.hero h1{
+font-size:42px;
 }
 
-.scroll{
-position:absolute;
-bottom:30px;
-font-size:30px;
-animation:bounce 2s infinite;
+.startBtn{
+margin-top:30px;
+padding:14px 30px;
+font-size:18px;
+background:#ff8c00;
+border:none;
+border-radius:6px;
+color:white;
+cursor:pointer;
 }
 
 .section{
-max-width:850px;
+display:none;
+padding:50px 20px;
+max-width:900px;
 margin:auto;
-padding:70px 20px;
 }
 
-.card{
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+margin-top:40px;
+}
+
+.stage{
 background:#141414;
-padding:30px;
 border-radius:10px;
-margin-bottom:30px;
-box-shadow:0 0 20px rgba(0,0,0,0.5);
-transform:translateY(40px);
-opacity:0;
-transition:all 0.8s ease;
+padding:30px;
+cursor:pointer;
+transition:.3s;
 }
 
-.card.show{
-transform:translateY(0);
-opacity:1;
+.stage.locked{
+opacity:.3;
+cursor:not-allowed;
 }
 
-h1{
-font-size:42px;
+.stage:hover:not(.locked){
+transform:scale(1.05);
+background:#ff8c00;
+}
+
+.box{
+font-size:40px;
 margin-bottom:10px;
 }
 
-h2{
-color:#ff8c00;
-}
-
-.final{
-text-align:center;
-}
-
-.final img{
-max-width:350px;
+.card{
+display:none;
+background:#141414;
+padding:30px;
 border-radius:10px;
-margin-top:25px;
-box-shadow:0 0 20px rgba(255,140,0,0.4);
+margin-top:40px;
 }
 
-@keyframes fadeIn{
-from{opacity:0}
-to{opacity:1}
+.card img{
+max-width:320px;
+border-radius:10px;
+margin-top:20px;
 }
 
-@keyframes bounce{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-10px)}
+.back{
+margin-top:20px;
+padding:10px 20px;
+border:none;
+background:#ff8c00;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+}
+
+@media(max-width:600px){
+
+.grid{
+grid-template-columns:repeat(3,1fr);
+}
+
 }
 
 </style>
@@ -99,146 +122,229 @@ to{opacity:1}
 
 <body>
 
+<canvas id="confetti"></canvas>
+
 <div class="hero">
-<div class="overlay">
+
 <h1>🌍 Uwaysh's Kahani</h1>
 <p>13 stages. 13 gifts. One unforgettable journey.</p>
-</div>
 
-<div class="scroll">⬇</div>
-</div>
-
-<div class="section">
-
-<div class="card">
-<h1>EID MUBARAK 🌙</h1>
-<h2>THE UNEXPECTED JOURNEY 🔥</h2>
-
-<p>Every legend has a story.</p>
-
-<p>Some start with years of training.<br>
-Others start with a random box of questionable gifts.</p>
-
-<p>Today… your journey begins.</p>
-
-<p>Inside this box are items that will slowly transform you into something special.</p>
-
-<p>Some are essential.<br>
-Some are for appearances.<br>
-And one… has absolutely nothing to do with the rest.</p>
-
-<p><strong>Follow the numbers in order.<br>
-No skipping ahead.</strong></p>
-
-<p>Trust the process.</p>
-</div>
-
-<div class="card">
-<h2>1️⃣ Football Socks</h2>
-<p>We’re starting strong.</p>
-<p>This has absolutely nothing to do with the rest of the gifts.</p>
-<p>Consider this the warm-up round.</p>
-</div>
-
-<div class="card">
-<h2>2️⃣ Rubber Gloves</h2>
-<p>Now we start looking the part.</p>
-<p>Handling things like a professional requires clean hands and confidence.</p>
-</div>
-
-<div class="card">
-<h2>3️⃣ Wipes</h2>
-<p>Things are about to get messy.</p>
-<p>This will help clean things up… or wipe away the panic.</p>
-</div>
-
-<div class="card">
-<h2>4️⃣ Apron</h2>
-<p>Now the transformation begins.</p>
-<p>Put this on and suddenly everyone assumes you know exactly what you're doing.</p>
-</div>
-
-<div class="card">
-<h2>5️⃣ Spray Bottle</h2>
-<p>A true master understands one important rule:</p>
-<p><strong>Keep things juicy.</strong></p>
-</div>
-
-<div class="card">
-<h2>6️⃣ Spatula Set</h2>
-<p>Now we’re getting serious.</p>
-<p>These are the tools used by real professionals.</p>
-</div>
-
-<div class="card">
-<h2>7️⃣ Small Burger Press</h2>
-<p>Purely for the little one someday.</p>
-</div>
-
-<div class="card">
-<h2>8️⃣ Small Dome</h2>
-<p>Again… purely for the little one someday.</p>
-</div>
-
-<div class="card">
-<h2>9️⃣ Burger Press</h2>
-<p>For doing things properly.</p>
-</div>
-
-<div class="card">
-<h2>🔟 Big Dome</h2>
-<p>The secret weapon.</p>
-<p>Watch everything melt perfectly.</p>
-</div>
-
-<div class="card">
-<h2>1️⃣1️⃣ Coal</h2>
-<p>The heart of it all.</p>
-<p>Without this… you're just standing outside holding equipment.</p>
-</div>
-
-<div class="card">
-<h2>1️⃣2️⃣ Cast Iron Plate</h2>
-<p>Now this is serious equipment.</p>
-<p>You're no longer cooking.</p>
-<p><strong>You're performing.</strong></p>
-</div>
-
-<div class="card final">
-<h2>1️⃣3️⃣ THE BBQ 🔥</h2>
-
-<p>And finally…</p>
-
-<p>Every master eventually reaches this moment.</p>
-
-<p>The tools are ready.<br>
-The fire is ready.</p>
-
-<h2>Your journey officially begins now 🔥🍔</h2>
-
-<img src="bbq.png">
+<button class="startBtn" onclick="startJourney()">
+START THE JOURNEY
+</button>
 
 </div>
 
+
+<div class="section" id="journey">
+
+<h2>EID MUBARAK 🌙</h2>
+
+<p><b>THE UNEXPECTED JOURNEY 🔥</b></p>
+
+<p>Follow the stages in order.</p>
+
+<div class="grid" id="grid"></div>
+
 </div>
+
+<div id="cards"></div>
+
 
 <script>
 
-const cards=document.querySelectorAll(".card");
+const gifts=[
 
-function reveal(){
-cards.forEach(card=>{
-const windowHeight=window.innerHeight;
-const top=card.getBoundingClientRect().top;
+["Football Socks","We’re starting strong. Completely unrelated to everything else."],
 
-if(top<windowHeight-100){
-card.classList.add("show");
+["Rubber Gloves","Now we start looking the part."],
+
+["Wipes","Things are about to get messy."],
+
+["Apron","Put this on and suddenly everyone assumes you know what you're doing."],
+
+["Spray Bottle","A true master knows one rule: keep things juicy."],
+
+["Spatula Set","Now we're getting serious."],
+
+["Small Burger Press","Purely for the little one someday."],
+
+["Small Dome","Again… purely for the little one someday."],
+
+["Burger Press","For doing things properly."],
+
+["Big Dome","The secret weapon."],
+
+["Coal","The heart of it all."],
+
+["Cast Iron Plate","Now you're performing."],
+
+["BBQ","Your journey begins now 🔥"]
+
+]
+
+let unlocked=1
+
+
+function startJourney(){
+
+document.querySelector(".hero").style.display="none"
+document.getElementById("journey").style.display="block"
+
+buildStages()
+
 }
-});
+
+
+function buildStages(){
+
+const grid=document.getElementById("grid")
+
+for(let i=1;i<=13;i++){
+
+let div=document.createElement("div")
+
+div.className="stage"
+
+if(i>unlocked) div.classList.add("locked")
+
+div.innerHTML=`<div class="box">📦</div>${i}`
+
+div.onclick=()=>openStage(i)
+
+grid.appendChild(div)
+
 }
 
-window.addEventListener("scroll",reveal);
-reveal();
+}
+
+
+
+function openStage(n){
+
+if(n>unlocked) return
+
+showCard(n)
+
+if(n===unlocked && unlocked<13){
+
+unlocked++
+
+updateLocks()
+
+}
+
+if(n===13){
+
+confetti()
+
+}
+
+}
+
+
+
+function updateLocks(){
+
+document.querySelectorAll(".stage").forEach((el,i)=>{
+
+if(i+1<=unlocked){
+
+el.classList.remove("locked")
+
+el.querySelector(".box").innerHTML="🎁"
+
+}
+
+})
+
+}
+
+
+
+function showCard(n){
+
+const cards=document.getElementById("cards")
+
+cards.innerHTML=""
+
+let div=document.createElement("div")
+
+div.className="card"
+div.style.display="block"
+
+let content=`<h2>${n}️⃣ ${gifts[n-1][0]}</h2>
+<p>${gifts[n-1][1]}</p>`
+
+if(n===13){
+
+content+=`<img src="bbq.png">`
+
+}
+
+content+=`<br><button class="back" onclick="closeCard()">Back</button>`
+
+div.innerHTML=content
+
+cards.appendChild(div)
+
+window.scrollTo({top:0,behavior:"smooth"})
+
+}
+
+
+
+function closeCard(){
+
+document.getElementById("cards").innerHTML=""
+
+}
+
+
+
+function confetti(){
+
+const canvas=document.getElementById("confetti")
+const ctx=canvas.getContext("2d")
+
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+
+let pieces=[]
+
+for(let i=0;i<200;i++){
+
+pieces.push({
+
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*6+4,
+speed:Math.random()*3+2
+
+})
+
+}
+
+function update(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+pieces.forEach(p=>{
+
+ctx.fillStyle=`hsl(${Math.random()*360},100%,50%)`
+ctx.fillRect(p.x,p.y,p.size,p.size)
+
+p.y+=p.speed
+
+})
+
+requestAnimationFrame(update)
+
+}
+
+update()
+
+}
 
 </script>
 
