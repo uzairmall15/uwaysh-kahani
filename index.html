@@ -121,6 +121,7 @@ width:90%;
 border-radius:10px;
 margin-top:25px;
 height:auto;
+display:none;
 }
 
 .btn{
@@ -134,11 +135,6 @@ cursor:pointer;
 font-size:16px;
 }
 
-.btn:disabled{
-opacity:.4;
-cursor:not-allowed;
-}
-
 canvas{
 position:fixed;
 top:0;
@@ -146,7 +142,6 @@ left:0;
 pointer-events:none;
 }
 
-/* PHONE FIX */
 @media(max-width:700px){
 
 .grid{
@@ -234,12 +229,12 @@ Trust the process.
 
 <div id="giftText" class="storyCard"></div>
 
-<img id="bbqImage" src="bbq.png" style="display:none">
+<img id="bbqImage" src="bbq.png">
 
 <div>
-<button class="btn" id="backBtn" onclick="backToGrid()" disabled>Back</button>
-<button class="btn" id="nextBtn" onclick="nextStage()" disabled>Next</button>
-<button class="btn" id="exitBtn" onclick="exitJourney()" disabled>Exit</button>
+<button class="btn" id="backBtn" onclick="backToGrid()">Back</button>
+<button class="btn" id="nextBtn" onclick="nextStage()">Next</button>
+<button class="btn" id="exitBtn" onclick="exitJourney()">Exit</button>
 <button class="btn" id="homeBtn" onclick="goHome()" style="display:none;">Back to Home</button>
 </div>
 
@@ -263,29 +258,69 @@ I just saw them and thought:
 
 Consider this the warm-up round.`],
 
-["2️⃣ Rubber Gloves",`Now we start looking the part.`],
+["2️⃣ Rubber Gloves",`Now we start looking the part.
 
-["3️⃣ Wipes",`Things are about to get messy.`],
+Handling things like a professional requires clean hands and confidence.
 
-["4️⃣ Apron",`Now the transformation begins.`],
+This helps with the clean part.
 
-["5️⃣ Spray Bottle",`Keep things juicy.`],
+The confidence is up to you.`],
 
-["6️⃣ BBQ Tools",`Now we’re getting serious.`],
+["3️⃣ Wipes",`Things are about to get messy.
 
-["7️⃣ Small Burger Press",`Purely for the little one someday… Inshallah.`],
+This will help clean things up…
 
-["8️⃣ Small Dome",`Again… purely for the little one someday, Inshallah.`],
+or wipe away the panic when things start going wrong.`],
+
+["4️⃣ Apron",`Now the transformation begins.
+
+Put this on and suddenly everyone assumes you know exactly what you're doing.
+
+Congratulations.
+
+You are now officially in charge.`],
+
+["5️⃣ Spray Bottle",`A true master understands one important rule:
+
+Keep things juicy.
+
+This helps with that.`],
+
+["6️⃣ BBQ Tools",`Now we’re getting serious.
+
+These are the tools used by real professionals.
+
+Please try not to launch anything across the garden.`],
+
+["7️⃣ Small Burger Press",`Purely for the little one someday…
+
+Inshallah.`],
+
+["8️⃣ Small Dome",`Again…
+
+purely for the little one someday, Inshallah.`],
 
 ["9️⃣ Burger Press",`For doing things properly.
 
 Not the "flatten it with a pot and hope for the best" technique.`],
 
-["🔟 Big Dome",`The secret weapon.`],
+["🔟 Big Dome",`The secret weapon.
 
-["1️⃣1️⃣ Coal",`The heart of it all.`],
+Place this over the top and watch everything melt perfectly.
 
-["1️⃣2️⃣ Cast Iron Plate",`Now this is serious equipment.`],
+Because doing things halfway is simply unacceptable.`],
+
+["1️⃣1️⃣ Coal",`The heart of it all.
+
+Without this…
+
+you’re just standing outside holding equipment and looking confused.`],
+
+["1️⃣2️⃣ Cast Iron Plate",`Now this is serious equipment.
+
+At this point you’re no longer just cooking.
+
+You’re performing.`],
 
 ["1️⃣3️⃣ BBQ",`And finally…
 
@@ -302,25 +337,36 @@ Your journey officially begins now. 🔥🍔`]
 
 ]
 
-function typeWriter(text,element){
+function typeWriter(text,element,stage){
 
 element.textContent=""
 let i=0
 
-document.getElementById("backBtn").disabled=true
-document.getElementById("nextBtn").disabled=true
-document.getElementById("exitBtn").disabled=true
-
 function type(){
+
 if(i<text.length){
 element.textContent+=text.charAt(i)
 i++
 setTimeout(type,20)
 }else{
-document.getElementById("backBtn").disabled=false
-document.getElementById("nextBtn").disabled=false
-document.getElementById("exitBtn").disabled=false
+
+if(stage==12){
+
+document.getElementById("bbqImage").style.display="block"
+
+document.getElementById("backBtn").style.display="none"
+document.getElementById("nextBtn").style.display="none"
+document.getElementById("exitBtn").style.display="none"
+
+document.getElementById("homeBtn").style.display="inline-block"
+
+document.getElementById("celebration").play()
+startConfetti()
+
 }
+
+}
+
 }
 
 type()
@@ -338,42 +384,22 @@ document.getElementById("stageScreen").style.display="flex"
 
 document.getElementById("giftTitle").textContent=gifts[i][0]
 
-typeWriter(gifts[i][1],document.getElementById("giftText"))
-
-if(i==12){
-
-document.getElementById("bbqImage").style.display="block"
-
-document.getElementById("backBtn").style.display="none"
-document.getElementById("nextBtn").style.display="none"
-document.getElementById("exitBtn").style.display="none"
-
-document.getElementById("homeBtn").style.display="inline-block"
-
-document.getElementById("celebration").play()
-startConfetti()
-
-}else{
-
 document.getElementById("bbqImage").style.display="none"
 
-document.getElementById("backBtn").style.display="inline-block"
-document.getElementById("nextBtn").style.display="inline-block"
-document.getElementById("exitBtn").style.display="inline-block"
-
-document.getElementById("homeBtn").style.display="none"
-
-}
+typeWriter(gifts[i][1],document.getElementById("giftText"),i)
 
 currentStage=i
 
 }
 
 function nextStage(){
+
 if(currentStage<gifts.length-1)
 currentStage++
+
 generateGrid()
 backToGrid()
+
 }
 
 function backToGrid(){
