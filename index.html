@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,9 +13,16 @@ font-family:Arial, Helvetica, sans-serif;
 background:#0b0b0b;
 color:white;
 text-align:center;
+overflow-x:hidden;
 }
 
-/* INTRO */
+canvas{
+position:fixed;
+top:0;
+left:0;
+pointer-events:none;
+z-index:0;
+}
 
 .intro{
 position:fixed;
@@ -27,21 +35,13 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-z-index:999;
+z-index:10;
 }
-
-.intro h1{
-font-size:42px;
-margin-bottom:10px;
-}
-
-/* HERO */
 
 .hero{
 height:100vh;
 background:url("hero.png") center/contain no-repeat;
-background-color:#0b0b0b;
-display:flex;
+display:none;
 flex-direction:column;
 align-items:center;
 justify-content:center;
@@ -56,9 +56,12 @@ border:none;
 border-radius:6px;
 color:white;
 cursor:pointer;
+transition:0.3s;
 }
 
-/* GRID */
+.startBtn:hover{
+transform:scale(1.05);
+}
 
 .section{
 display:none;
@@ -83,21 +86,19 @@ transition:.3s;
 }
 
 .stage.locked{
-opacity:.3;
+opacity:.35;
 cursor:not-allowed;
 }
 
 .stage:hover:not(.locked){
-transform:scale(1.05);
+transform:scale(1.07);
 background:#ff8c00;
 }
 
 .box{
-font-size:40px;
+font-size:45px;
 margin-bottom:10px;
 }
-
-/* FULLSCREEN */
 
 .fullscreen{
 position:fixed;
@@ -111,7 +112,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 padding:30px;
-z-index:1000;
+z-index:5;
 }
 
 .fullscreen img{
@@ -129,124 +130,121 @@ border-radius:6px;
 margin:10px;
 cursor:pointer;
 font-size:16px;
+transition:0.3s;
 }
 
-/* CONFETTI */
-
-canvas{
-position:fixed;
-top:0;
-left:0;
-pointer-events:none;
+.btn:hover{
+transform:scale(1.05);
 }
 
-@media(max-width:600px){
+@media(max-width:700px){
 .grid{
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(2,1fr);
 }
 }
 
 </style>
-
 </head>
 
 <body>
 
 <canvas id="confetti"></canvas>
 
-<!-- INTRO -->
-
 <div class="intro" id="intro">
-
 <h1>EID MUBARAK 🌙</h1>
 <p>The Unexpected Journey Begins...</p>
-
-<button class="startBtn" onclick="enterSite()">
-ENTER
-</button>
+<button class="startBtn" onclick="enterSite()">ENTER</button>
 
 <audio id="eidMusic" loop>
 <source src="eid.mp3" type="audio/mpeg">
 </audio>
 
-</div>
+<audio id="openSound">
+<source src="open.mp3" type="audio/mpeg">
+</audio>
 
-<!-- HERO -->
+<audio id="celebration">
+<source src="celebration.mp3" type="audio/mpeg">
+</audio>
+
+</div>
 
 <div class="hero" id="hero">
-
 <h1>🌍 Uwaysh's Kahani</h1>
 <p>13 stages. 13 gifts. One unforgettable journey.</p>
-
-<button class="startBtn" onclick="startJourney()">
-START THE JOURNEY
-</button>
-
+<button class="startBtn" onclick="startJourney()">START THE JOURNEY</button>
 </div>
-
-<!-- GRID -->
 
 <div class="section" id="journey">
 
-<h2>THE UNEXPECTED JOURNEY 🔥</h2>
-<p>Open the gifts in order.</p>
+<h2>EID MUBARAK 🌙</h2>
+<h3>THE UNEXPECTED JOURNEY 🔥</h3>
+
+<p style="max-width:700px;margin:auto">
+
+Every legend has a story.<br><br>
+
+Some start with years of training.<br>
+Others start with a random box of questionable gifts.<br><br>
+
+Today… your journey begins.<br><br>
+
+Inside this box are items that will slowly transform you into something special.<br><br>
+
+Some are essential.<br>
+Some are for appearances.<br>
+And one… has absolutely nothing to do with the rest.<br><br>
+
+Follow the numbers in order.<br>
+No skipping ahead.<br><br>
+
+Trust the process.
+
+</p>
+
+<h3 style="margin-top:40px">OPEN IN ORDER</h3>
 
 <div class="grid" id="grid"></div>
 
 </div>
 
-<!-- FULLSCREEN STAGE -->
-
 <div class="fullscreen" id="stageScreen">
 
 <h2 id="giftTitle"></h2>
-<p id="giftText"></p>
+
+<div id="giftText" style="max-width:700px;white-space:pre-line"></div>
 
 <img id="bbqImage" src="bbq.png" style="display:none">
 
 <div>
-
 <button class="btn" onclick="backToGrid()">Back</button>
 <button class="btn" onclick="nextStage()">Next</button>
 <button class="btn" onclick="exitJourney()">Exit</button>
-
 </div>
 
 </div>
-
 
 <script>
 
-/* MUSIC START */
+let currentStage = 0
 
-function enterSite(){
+const gifts = [
 
-document.getElementById("eidMusic").play()
-
-document.getElementById("intro").style.display="none"
-document.getElementById("hero").style.display="flex"
-
-}
-
-/* GIFTS */
-
-const gifts=[
-
-["1️⃣ Football Socks","Completely unrelated. Just thought you'd like them."],
+["1️⃣ Football Socks","We’re starting strong. This has absolutely nothing to do with the rest of the gifts."],
 
 ["2️⃣ Rubber Gloves","Now we start looking the part."],
 
 ["3️⃣ Wipes","Things are about to get messy."],
 
-["4️⃣ Apron","Put this on and suddenly everyone assumes you're a professional."],
+["4️⃣ Apron","Now the transformation begins."],
 
-["5️⃣ Spray Bottle","A true master knows one rule: keep things juicy."],
+["5️⃣ Spray Bottle","Keep things juicy."],
 
-["6️⃣ Spatula Set","Now we're getting serious."],
+["6️⃣ Spatula Set","Professional tools unlocked."],
 
-["7️⃣ Small Burger Press","For the little one someday."],
+["7️⃣ Small Burger Press","Purely for the little one someday."],
 
-["8️⃣ Small Dome","Again… purely for the little one."],
+["8️⃣ Small Dome","Again… purely for the little one someday."],
 
 ["9️⃣ Burger Press","For doing things properly."],
 
@@ -254,127 +252,99 @@ const gifts=[
 
 ["1️⃣1️⃣ Coal","The heart of it all."],
 
-["1️⃣2️⃣ Cast Iron Plate","Now you're performing."],
+["1️⃣2️⃣ Cast Iron Plate","Now this is serious equipment."],
 
-["1️⃣3️⃣ THE BBQ","Your journey begins now 🔥"]
+["1️⃣3️⃣ BBQ","Your journey officially begins now. 🔥🍔"]
 
 ]
 
-let unlocked=1
-let currentStage=1
+function playOpen(){
+document.getElementById("openSound").play()
+}
 
-/* START JOURNEY */
+function enterSite(){
+document.getElementById("eidMusic").play()
+document.getElementById("intro").style.display="none"
+document.getElementById("hero").style.display="flex"
+}
 
 function startJourney(){
-
-document.getElementById("eidMusic").pause()
-
+playOpen()
 document.getElementById("hero").style.display="none"
 document.getElementById("journey").style.display="block"
-
-buildStages()
-
+generateGrid()
 }
 
-/* BUILD GRID */
+function generateGrid(){
 
-function buildStages(){
-
-const grid=document.getElementById("grid")
+const grid = document.getElementById("grid")
 grid.innerHTML=""
 
-for(let i=1;i<=13;i++){
+for(let i=0;i<gifts.length;i++){
 
-let div=document.createElement("div")
+const stage=document.createElement("div")
+stage.className="stage"
 
-div.className="stage"
+if(i>currentStage) stage.classList.add("locked")
 
-if(i>unlocked) div.classList.add("locked")
+stage.innerHTML=`
+<div class="box">${i<=currentStage?"🎁":"🔒"}</div>
+Stage ${i+1}
+`
 
-div.innerHTML=`<div class="box">📦</div>${i}`
+stage.onclick=()=>openStage(i)
 
-div.onclick=()=>openStage(i)
-
-grid.appendChild(div)
-
-}
-
-}
-
-/* OPEN STAGE */
-
-function openStage(n){
-
-if(n>unlocked) return
-
-currentStage=n
-
-if(n<13){
-
-new Audio("open.mp3").play()
+grid.appendChild(stage)
 
 }
 
-document.getElementById("giftTitle").innerText=gifts[n-1][0]
-document.getElementById("giftText").innerText=gifts[n-1][1]
+}
 
-document.getElementById("stageScreen").style.display="flex"
+function openStage(i){
+
+if(i>currentStage) return
+
+playOpen()
+
 document.getElementById("journey").style.display="none"
+document.getElementById("stageScreen").style.display="flex"
 
-if(n===13){
+document.getElementById("giftTitle").innerText=gifts[i][0]
+document.getElementById("giftText").innerText=gifts[i][1]
 
+if(i==12){
 document.getElementById("bbqImage").style.display="block"
-
-new Audio("celebration.mp3").play()
-
-confetti()
-
+document.getElementById("celebration").play()
+startConfetti()
 }else{
-
 document.getElementById("bbqImage").style.display="none"
-
 }
 
-}
-
-/* BACK */
-
-function backToGrid(){
-
-document.getElementById("stageScreen").style.display="none"
-document.getElementById("journey").style.display="block"
+currentStage=i
 
 }
-
-/* NEXT */
 
 function nextStage(){
 
-if(currentStage<13){
+if(currentStage < gifts.length-1)
+currentStage++
 
-unlocked=Math.max(unlocked,currentStage+1)
-
-buildStages()
+generateGrid()
 
 backToGrid()
 
 }
 
+function backToGrid(){
+document.getElementById("stageScreen").style.display="none"
+document.getElementById("journey").style.display="block"
 }
-
-/* EXIT */
 
 function exitJourney(){
-
-document.getElementById("stageScreen").style.display="none"
-document.getElementById("journey").style.display="none"
-document.getElementById("hero").style.display="flex"
-
+location.reload()
 }
 
-/* CONFETTI */
-
-function confetti(){
+function startConfetti(){
 
 const canvas=document.getElementById("confetti")
 const ctx=canvas.getContext("2d")
@@ -384,37 +354,43 @@ canvas.height=window.innerHeight
 
 let pieces=[]
 
-for(let i=0;i<200;i++){
+for(let i=0;i<120;i++){
 
 pieces.push({
-
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-size:Math.random()*6+4,
-speed:Math.random()*3+2
-
+r:Math.random()*6+4
 })
 
 }
 
-function update(){
+function draw(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height)
 
-pieces.forEach(p=>{
+ctx.fillStyle="#ff8c00"
 
-ctx.fillStyle=`hsl(${Math.random()*360},100%,50%)`
-ctx.fillRect(p.x,p.y,p.size,p.size)
+for(let i=0;i<pieces.length;i++){
 
-p.y+=p.speed
+let p=pieces[i]
 
-})
+ctx.beginPath()
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+ctx.fill()
 
-requestAnimationFrame(update)
+p.y+=2
+
+if(p.y>canvas.height){
+p.y=0
+}
 
 }
 
-update()
+requestAnimationFrame(draw)
+
+}
+
+draw()
 
 }
 
@@ -422,3 +398,4 @@ update()
 
 </body>
 </html>
+```
