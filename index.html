@@ -251,6 +251,8 @@ Trust the process.
 
 <div id="giftText" class="storyCard"></div>
 
+<img id="giftImage">
+
 <img id="bbqImage" src="bbq.png">
 
 <div>
@@ -270,7 +272,7 @@ let currentStage=0
 
 const gifts=[
 
-["1️⃣ Football Socks",`We’re starting strong.
+["1️⃣ Football Socks","socks.jpeg",`We’re starting strong.
 
 This has absolutely nothing to do with the rest of the gifts.
 
@@ -282,7 +284,7 @@ I just saw them and thought:
 
 Consider this the warm-up round.`],
 
-["2️⃣ Rubber Gloves",`Now we start looking the part.
+["2️⃣ Rubber Gloves","gloves.jpeg",`Now we start looking the part.
 
 Handling things like a professional requires clean hands and confidence.
 
@@ -290,13 +292,13 @@ This helps with the clean part.
 
 The confidence is up to you.`],
 
-["3️⃣ Wipes",`Things are about to get messy.
+["3️⃣ Wipes","wipes.jpeg",`Things are about to get messy.
 
 This will help clean things up…
 
 or wipe away the panic when things start going wrong.`],
 
-["4️⃣ Apron",`Now the transformation begins.
+["4️⃣ Apron","apron.jpeg",`Now the transformation begins.
 
 Put this on and suddenly everyone assumes you know exactly what you're doing.
 
@@ -304,43 +306,43 @@ Congratulations.
 
 You are now officially in charge.`],
 
-["5️⃣ Spray Bottle",`A true master understands one important rule:
+["5️⃣ Spray Bottle","spray.jpeg",`A true master understands one important rule:
 
 Keep things juicy.
 
 This helps with that.`],
 
-["6️⃣ BBQ Tools",`Now we’re getting serious.
+["6️⃣ BBQ Tools","bbq_tools.jpeg",`Now we’re getting serious.
 
 These are the tools used by real professionals.
 
 Please try not to launch anything across the garden.`],
 
-["7️⃣ Small Burger Press",`Purely for the little one someday… Inshallah.`],
+["7️⃣ Small Burger Press","small_press.jpeg",`Purely for the little one someday… Inshallah.`],
 
-["8️⃣ Small Dome",`Again… purely for the little one someday, Inshallah.`],
+["8️⃣ Small Dome","small_dome.jpeg",`Again… purely for the little one someday, Inshallah.`],
 
-["9️⃣ Burger Press",`For doing things properly.
+["9️⃣ Burger Press","big_press.jpeg",`For doing things properly.
 
 Not the "flatten it with a pot and hope for the best" technique.`],
 
-["🔟 Big Dome",`The secret weapon.
+["🔟 Big Dome","big_dome.jpeg",`The secret weapon.
 
 Place this over the top and watch everything melt perfectly.`],
 
-["1️⃣1️⃣ Coal",`The heart of it all.
+["1️⃣1️⃣ Coal","coal.jpeg",`The heart of it all.
 
 Without this…
 
 you’re just standing outside holding equipment and looking confused.`],
 
-["1️⃣2️⃣ Cast Iron Plate",`Now this is serious equipment.
+["1️⃣2️⃣ Cast Iron Plate","plate.jpeg",`Now this is serious equipment.
 
 At this point you're no longer just cooking.
 
 You're performing.`],
 
-["1️⃣3️⃣ BBQ",`And finally…
+["1️⃣3️⃣ BBQ","bbq.png",`And finally…
 
 Every master eventually reaches this moment.
 
@@ -389,6 +391,7 @@ enableButtons()
 if(stage==12){
 
 bbqImage.style.display="block"
+giftImage.style.display="none"
 
 backBtn.style.display="none"
 nextBtn.style.display="none"
@@ -419,9 +422,12 @@ stageScreen.style.display="flex"
 
 giftTitle.innerText=gifts[i][0]
 
+giftImage.src=gifts[i][1]
+giftImage.style.display="block"
+
 bbqImage.style.display="none"
 
-typeWriter(gifts[i][1],giftText,i)
+typeWriter(gifts[i][2],giftText,i)
 
 currentStage=i
 
