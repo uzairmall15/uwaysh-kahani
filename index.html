@@ -1,14 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0b0b0b">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Uwaysh's Kahani</title>
 
 <style>
@@ -19,11 +12,6 @@ font-family:Arial, Helvetica, sans-serif;
 background:#0b0b0b;
 color:white;
 text-align:center;
-}
-
-html,body{
-height:100%;
-overflow-x:hidden;
 }
 
 .intro{
@@ -255,7 +243,6 @@ Trust the process.
 <script>
 
 let currentStage=0
-let typing=false
 
 const gifts=[
 
@@ -354,7 +341,6 @@ function typeWriter(text,element,stage){
 
 element.textContent=""
 let i=0
-typing=true
 
 function type(){
 
@@ -363,8 +349,6 @@ element.textContent+=text.charAt(i)
 i++
 setTimeout(type,20)
 }else{
-
-typing=false
 
 if(stage==12){
 
@@ -409,8 +393,6 @@ currentStage=i
 }
 
 function nextStage(){
-
-if(typing) return
 
 if(currentStage<gifts.length-1)
 currentStage++
