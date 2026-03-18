@@ -96,7 +96,6 @@ cursor:not-allowed;
 
 .stage:hover:not(.locked){
 transform:scale(1.05);
-background:#ff8c00;
 }
 
 .box{
@@ -140,7 +139,6 @@ border-radius:10px;
 margin-top:25px;
 opacity:0;
 transition:opacity .6s ease;
-display:block;
 }
 
 /* BUTTONS */
@@ -297,64 +295,31 @@ The confidence is up to you.`],
 
 ["3️⃣ Wipes","wipes.jpeg",`Things are about to get messy.
 
-This will help clean things up…
+This will help clean things up…`],
 
-or wipe away the panic when things start going wrong.`],
-
-["4️⃣ Apron","apron.jpeg",`Now the transformation begins.
-
-Put this on and suddenly everyone assumes you know exactly what you're doing.
-
-Congratulations.
-
-You are now officially in charge.`],
+["4️⃣ Apron","apron.jpeg",`Now the transformation begins.`],
 
 ["5️⃣ Spray Bottle","spray.jpeg",`A true master understands one important rule:
 
-Keep things juicy.
+Keep things juicy.`],
 
-This helps with that.`],
-
-["6️⃣ BBQ Tools","bbq_tools.jpeg",`Now we’re getting serious.
-
-These are the tools used by real professionals.
-
-Please try not to launch anything across the garden.`],
+["6️⃣ BBQ Tools","bbq_tools.jpeg",`Now we’re getting serious.`],
 
 ["7️⃣ Small Burger Press","small_press.jpeg",`Purely for the little one someday… Inshallah.`],
 
 ["8️⃣ Small Dome","small_dome.jpeg",`Again… purely for the little one someday, Inshallah.`],
 
-["9️⃣ Burger Press","big_press.jpeg",`For doing things properly.
+["9️⃣ Burger Press","big_press.jpeg",`For doing things properly.`],
 
-Not the "flatten it with a pot and hope for the best" technique.`],
+["🔟 Big Dome","big_dome.jpeg",`The secret weapon.`],
 
-["🔟 Big Dome","big_dome.jpeg",`The secret weapon.
+["1️⃣1️⃣ Coal","coal.jpeg",`The heart of it all.`],
 
-Place this over the top and watch everything melt perfectly.`],
-
-["1️⃣1️⃣ Coal","coal.jpeg",`The heart of it all.
-
-Without this…
-
-you’re just standing outside holding equipment and looking confused.`],
-
-["1️⃣2️⃣ Cast Iron Plate","plate.jpeg",`Now this is serious equipment.
-
-At this point you're no longer just cooking.
-
-You're performing.`],
+["1️⃣2️⃣ Cast Iron Plate","plate.jpeg",`Now this is serious equipment.`],
 
 ["1️⃣3️⃣ BBQ","bbq.png",`And finally…
 
 Every master eventually reaches this moment.
-
-After all the preparation, tools, and training…
-
-there was only one thing missing.
-
-The tools are ready.
-The fire is ready.
 
 Your journey officially begins now. 🔥🍔`]
 
@@ -395,8 +360,8 @@ giftImage.style.opacity="1"
 
 if(stage==12){
 
-bbqImage.style.display="block"
-giftImage.style.display="none"
+giftImage.style.opacity="0"
+bbqImage.style.opacity="1"
 
 backBtn.style.display="none"
 nextBtn.style.display="none"
@@ -430,7 +395,7 @@ giftTitle.innerText=gifts[i][0]
 giftImage.src=gifts[i][1]
 giftImage.style.opacity="0"
 
-bbqImage.style.display="none"
+bbqImage.style.opacity="0"
 
 typeWriter(gifts[i][2],giftText,i)
 
