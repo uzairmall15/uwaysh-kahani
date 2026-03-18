@@ -13,6 +13,7 @@ font-family:Arial;
 background:#0b0b0b;
 color:white;
 line-height:1.6;
+scroll-behavior:smooth;
 }
 
 .hero{
@@ -23,18 +24,27 @@ display:flex;
 align-items:center;
 justify-content:center;
 text-align:center;
+position:relative;
 }
 
 .overlay{
 background:rgba(0,0,0,0.6);
 padding:40px;
 border-radius:12px;
+animation:fadeIn 2s ease;
+}
+
+.scroll{
+position:absolute;
+bottom:30px;
+font-size:30px;
+animation:bounce 2s infinite;
 }
 
 .section{
-max-width:800px;
+max-width:850px;
 margin:auto;
-padding:60px 20px;
+padding:70px 20px;
 }
 
 .card{
@@ -42,7 +52,15 @@ background:#141414;
 padding:30px;
 border-radius:10px;
 margin-bottom:30px;
-box-shadow:0 0 20px rgba(0,0,0,0.4);
+box-shadow:0 0 20px rgba(0,0,0,0.5);
+transform:translateY(40px);
+opacity:0;
+transition:all 0.8s ease;
+}
+
+.card.show{
+transform:translateY(0);
+opacity:1;
 }
 
 h1{
@@ -54,11 +72,6 @@ h2{
 color:#ff8c00;
 }
 
-.intro{
-text-align:center;
-font-size:18px;
-}
-
 .final{
 text-align:center;
 }
@@ -66,7 +79,18 @@ text-align:center;
 .final img{
 max-width:350px;
 border-radius:10px;
-margin-top:20px;
+margin-top:25px;
+box-shadow:0 0 20px rgba(255,140,0,0.4);
+}
+
+@keyframes fadeIn{
+from{opacity:0}
+to{opacity:1}
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
 }
 
 </style>
@@ -80,12 +104,14 @@ margin-top:20px;
 <h1>🌍 Uwaysh's Kahani</h1>
 <p>13 stages. 13 gifts. One unforgettable journey.</p>
 </div>
+
+<div class="scroll">⬇</div>
 </div>
 
-<div class="section intro">
+<div class="section">
 
+<div class="card">
 <h1>EID MUBARAK 🌙</h1>
-
 <h2>THE UNEXPECTED JOURNEY 🔥</h2>
 
 <p>Every legend has a story.</p>
@@ -105,60 +131,43 @@ And one… has absolutely nothing to do with the rest.</p>
 No skipping ahead.</strong></p>
 
 <p>Trust the process.</p>
-
 </div>
-
-<div class="section">
 
 <div class="card">
 <h2>1️⃣ Football Socks</h2>
-<p>This has absolutely nothing to do with the rest of the gifts.<br>
-No theme. No hidden meaning.</p>
-<p>I just saw them and thought:<br>
-“Yeah… he’d probably like those.”</p>
+<p>We’re starting strong.</p>
+<p>This has absolutely nothing to do with the rest of the gifts.</p>
 <p>Consider this the warm-up round.</p>
 </div>
 
 <div class="card">
 <h2>2️⃣ Rubber Gloves</h2>
-<p>Now we start looking the part.<br>
-Handling things like a professional requires clean hands and confidence.</p>
-<p>This helps with the clean part.<br>
-The confidence is up to you.</p>
+<p>Now we start looking the part.</p>
+<p>Handling things like a professional requires clean hands and confidence.</p>
 </div>
 
 <div class="card">
 <h2>3️⃣ Wipes</h2>
 <p>Things are about to get messy.</p>
-<p>This will help clean things up…<br>
-or wipe away the panic when things start going wrong.</p>
+<p>This will help clean things up… or wipe away the panic.</p>
 </div>
 
 <div class="card">
 <h2>4️⃣ Apron</h2>
 <p>Now the transformation begins.</p>
 <p>Put this on and suddenly everyone assumes you know exactly what you're doing.</p>
-
-<p>Congratulations.<br>
-You are now officially in charge.</p>
 </div>
 
 <div class="card">
 <h2>5️⃣ Spray Bottle</h2>
 <p>A true master understands one important rule:</p>
-
 <p><strong>Keep things juicy.</strong></p>
-
-<p>This helps with that.</p>
 </div>
 
 <div class="card">
 <h2>6️⃣ Spatula Set</h2>
-<p>Now we're getting serious.</p>
-
+<p>Now we’re getting serious.</p>
 <p>These are the tools used by real professionals.</p>
-
-<p>Please try not to launch anything across the garden.</p>
 </div>
 
 <div class="card">
@@ -174,62 +183,64 @@ You are now officially in charge.</p>
 <div class="card">
 <h2>9️⃣ Burger Press</h2>
 <p>For doing things properly.</p>
-
-<p>Not the “flatten it with a pot and hope for the best” technique.</p>
 </div>
 
 <div class="card">
 <h2>🔟 Big Dome</h2>
-
 <p>The secret weapon.</p>
-
-<p>Place this over the top and watch everything melt perfectly.</p>
-
-<p>Because doing things halfway is simply unacceptable.</p>
-
+<p>Watch everything melt perfectly.</p>
 </div>
 
 <div class="card">
 <h2>1️⃣1️⃣ Coal</h2>
-
 <p>The heart of it all.</p>
-
-<p>Without this… you're just standing outside holding equipment and looking confused.</p>
-
+<p>Without this… you're just standing outside holding equipment.</p>
 </div>
 
 <div class="card">
 <h2>1️⃣2️⃣ Cast Iron Plate</h2>
-
 <p>Now this is serious equipment.</p>
-
-<p>At this point you're no longer just cooking.</p>
-
+<p>You're no longer cooking.</p>
 <p><strong>You're performing.</strong></p>
-
 </div>
 
 <div class="card final">
-
 <h2>1️⃣3️⃣ THE BBQ 🔥</h2>
 
 <p>And finally…</p>
 
 <p>Every master eventually reaches this moment.</p>
 
-<p>After all the preparation, tools, and training…<br>
-there was only one thing missing.</p>
-
 <p>The tools are ready.<br>
 The fire is ready.</p>
 
-<h2>Your journey officially begins now. 🔥🍔</h2>
+<h2>Your journey officially begins now 🔥🍔</h2>
 
 <img src="bbq.png">
 
 </div>
 
 </div>
+
+<script>
+
+const cards=document.querySelectorAll(".card");
+
+function reveal(){
+cards.forEach(card=>{
+const windowHeight=window.innerHeight;
+const top=card.getBoundingClientRect().top;
+
+if(top<windowHeight-100){
+card.classList.add("show");
+}
+});
+}
+
+window.addEventListener("scroll",reveal);
+reveal();
+
+</script>
 
 </body>
 </html>
